@@ -1,6 +1,6 @@
 const express = require('express');
 const cors = require('cors');
-const mongoos = require('mongoose')
+const mongoose = require('mongoose')
 
 require('dotenv').config();
 
@@ -12,7 +12,7 @@ app.use(express.json());
 
 //Did NOT enter any URL or details into .env file yet
 const uri = process.env.ATLAS_URI;
-mongoose.connect(uri, {useNewUrlParser: true, useCreateIndex: true});
+mongoose.connect(uri, { useNewUrlParser: true, useCreateIndex: true });
 
 const connection = mongoose.connection;
 connection.once('open', () => {
