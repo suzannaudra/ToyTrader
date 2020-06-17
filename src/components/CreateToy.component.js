@@ -7,7 +7,7 @@ export default class CreateToy extends Component {
   constructor(props) {
     super(props);
 
-   // this.onChangeusername = this.onChangeusername.bind(this);
+    //this.onChangeusername = this.onChangeusername.bind(this);
     this.onChangedescription = this.onChangedescription.bind(this);
     this.onChangecondition = this.onChangecondition.bind(this);
     this.onChangelocation = this.onChangelocation.bind(this);
