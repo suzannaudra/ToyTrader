@@ -5,7 +5,7 @@ export default class CreateUser extends Component {
   constructor(props) {
     super(props);
 //LINE BELOW CAUSES AN ERROR
-  // this.onChangeusername = this.onChangeusername.bind(this);
+    //this.onChangeusername = this.onChangeusername.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
 
     this.state = {

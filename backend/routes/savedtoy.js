@@ -1,13 +1,13 @@
 const router = require('express').Router();
-let Toy = require('../models/modeltoys');
+let savedtoy = require('../models/modelsavedtoy');
 
-router.route('/toy').get((req, res) => {
-  Toy.find()
+router.route('/savedtoys').get((req, res) => {
+  savedtoy.find()
   .then(toys => res.json(toys))
   .catch(err => res.status(400).json('Error: ' + err));
 });
 
-router.route('/toy/add').post((req, res) => {
+router.route('/savedtoys').post((req, res) => {
   const username = req.body.username;
   const description = req.body.description;
   const date = Date.parse(req.body.date);
@@ -16,45 +16,31 @@ router.route('/toy/add').post((req, res) => {
   const image = req.body.image;
    //I'm not sure if this is correct for images 
   const location = req.body.location;
-
-  const newToy = new Toy({
-    username,
-    description,
-    date,
-    condition,
-    image,
-    location,
-  });
-
-  newToy.save()
-  .then(() => res.json('Toy added!'))
-  .catch(err => res.status(400).json('Error: ' + err));
 });
 
-router.route('/toy/:id').get((req, res) => {
-  Toy.findById(req.params.id)
+router.route('/savedtoys:id').get((req, res) => {
+  savedtoy.findById(req.params.id)
   .then(toy => res.json(toy))
   .catch(err => res.status(400).json('Error: ' +err));
 });
 
-router.route('/toy/:id').delete((req, res) => {
-  Toy.findByIdAndDelete(req.params.id)
+router.route('/savedtoys:id').delete((req, res) => {
+  savedtoy.findByIdAndDelete(req.params.id)
   .then(() => res.json('Toy deleted.'))
   .catch(err => res.status(400).json('Error: ' + err))
 });
 
-router.route('/toy/update/:id').post((req,res) => {
-  Toy.findById(req.params.id)
+router.route('savedtoys/update/:id').post((req,res) => {
+  savedtoy.findById(req.params.id)
   .then(toy => {
     toy.username = req.body.username
     toy.description = req.body.description;
     toy.date = Date.parse(req.body.date);
     toy.condition = req.body.condition;
     toy.image = req.body.image;
-   //I'm not sure if this is correct for images 
     toy.location = req.body.location;
 
-    toy.save()
+    savedtoy.save()
       .then(() => res.json('Toy updated.'))
       .catch(err => res.status(400).json('Error: ' + err));
 })

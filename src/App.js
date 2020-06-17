@@ -4,21 +4,23 @@ import './App.css';
 import "bootstrap/dist/css/bootstrap.min.css";
 
 import Navbar from "./components/navbar/navbar.component";
-import ToyList from "./components/ToyList/ToyList.component";
-import EditToy from "./components/EditToy/EditToy.component";
-import CreateToy from "./components/CreateToy/CreateToy.component";
-import CreateUser from "./components/CreateUser/CreateUser.component";
+import ToyList from "./components/ToyList.component";
+import EditToy from "./components/EditToy.component";
+import CreateToy from "./components/CreateToy.component";
+import CreateUser from "./components/CreateUser.component";
+import SavedToyList from "./components/SavedToy/SavedToy.component";
 
 function App() {
   return (
     <Router>
       <div className="container">
-        <Navbar />
-        <br />
-        <Route path="/" exact component={ToyList} />
-        <Route path="/edit/:id" component={EditToy} />
-        <Route path="/create" component={CreateToy} />
-        <Route path="/user" component={CreateUser} />
+      <Navbar />
+      <br/>
+      <Route path="/toys" exact component={ToyList} />
+      <Route path="/toys/update" component={EditToy} />
+      <Route path="/toys/add" component={CreateToy} />
+      <Route path="/users/add" component={CreateUser} />
+      <Route path="/savedtoys" component={savedToy} />
       </div>
     </Router>
 

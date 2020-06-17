@@ -1,7 +1,7 @@
 const router = require('express').Router();
-let Toy = require('../models/modeltoys');
+let Toy = require('../models/modelpostnew');
 
-router.route('/toy').get((req, res) => {
+router.route('/toy/add').get((req, res) => {
   Toy.find()
   .then(toys => res.json(toys))
   .catch(err => res.status(400).json('Error: ' + err));
@@ -34,30 +34,6 @@ router.route('/toy/add').post((req, res) => {
 router.route('/toy/:id').get((req, res) => {
   Toy.findById(req.params.id)
   .then(toy => res.json(toy))
-  .catch(err => res.status(400).json('Error: ' +err));
-});
-
-router.route('/toy/:id').delete((req, res) => {
-  Toy.findByIdAndDelete(req.params.id)
-  .then(() => res.json('Toy deleted.'))
-  .catch(err => res.status(400).json('Error: ' + err))
-});
-
-router.route('/toy/update/:id').post((req,res) => {
-  Toy.findById(req.params.id)
-  .then(toy => {
-    toy.username = req.body.username
-    toy.description = req.body.description;
-    toy.date = Date.parse(req.body.date);
-    toy.condition = req.body.condition;
-    toy.image = req.body.image;
-   //I'm not sure if this is correct for images 
-    toy.location = req.body.location;
-
-    toy.save()
-      .then(() => res.json('Toy updated.'))
-      .catch(err => res.status(400).json('Error: ' + err));
-})
   .catch(err => res.status(400).json('Error: ' +err));
 });
 
