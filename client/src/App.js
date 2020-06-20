@@ -3,12 +3,12 @@ import { BrowserRouter as Router, Route } from "react-router-dom";
 import './App.css';
 import "bootstrap/dist/css/bootstrap.min.css";
 
-import NavigationBar from "./components/navbar";
+import NavigationBar from "./components/Navbar";
 import ToyList from "./pages/ToyList";
 import EditToy from "./components/EditToy";
 import CreateToy from "./components/CreateToy";
 import CreateUser from "./components/CreateUser";
-import SavedToyList from "./pages/SavedToy";
+import SavedToyList from "./pages/SaveToy";
 
 function App() {
   return (
