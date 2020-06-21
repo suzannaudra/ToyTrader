@@ -3,6 +3,8 @@ import { Link } from 'react-router-dom';
 import axios from 'axios';
 import ToyCard from '../../components/SavedToyCard';
 // import savedToy from '../SavedToy';
+import CardColumns from 'react-bootstrap/CardColumns'
+
 
 
 export default class ToyList extends Component {
@@ -13,28 +15,49 @@ export default class ToyList extends Component {
         this.state = {
             toys: [
                 {
+                    Toyname: "Barbie",
                     Username: "Suzann",
                     Description: "doll",
                     Condition: "new",
-                    Image: "https://via.placeholder.com/250",
+                    Image: "https://via.placeholder.com/100",
                     Date: "06/16/2020",
-                    Location: "Oakland",
+                    Location: "Oakland, CA",
                 },
                 {
+                    Toyname: "Ram",
                     Username: "Thuy",
                     Description: "bike",
                     Condition: "new",
-                    Image: "https://via.placeholder.com/250",
+                    Image: "https://via.placeholder.com/100",
                     Date: "06/16/2020",
-                    Location: "San Diego",
+                    Location: "San Diego, CA",
                 },
                 {
+                    Toyname: "Harley",
                     Username: "Angel",
                     Description: "Motorcyle",
                     Condition: "new",
-                    Image: "https://via.placeholder.com/250",
+                    Image: "https://via.placeholder.com/100",
                     Date: "06/16/2020",
-                    Location: "San Francisco"
+                    Location: "San Francisco, CA"
+                },
+                {
+                    Toyname: "Harley",
+                    Username: "Angel",
+                    Description: "Motorcyle",
+                    Condition: "new",
+                    Image: "https://via.placeholder.com/100",
+                    Date: "06/16/2020",
+                    Location: "San Francisco, CA"
+                },
+                {
+                    Toyname: "Harley",
+                    Username: "Angel",
+                    Description: "Motorcyle",
+                    Condition: "new",
+                    Image: "https://via.placeholder.com/100",
+                    Date: "06/16/2020",
+                    Location: "San Francisco, CA"
                 }
             ]
         };
@@ -71,10 +94,10 @@ export default class ToyList extends Component {
         return (
             <div>
                 <h3>TOYS</h3>
-                <table className="table">
+                {/* <table className="table">
                     <thead className="thead-light">
                         <tr>
-                            <th>Username</th>
+                            <th>Toyname</th>
                             <th>Description</th>
                             <th>Condition</th>
                             <th>Image</th>
@@ -83,12 +106,18 @@ export default class ToyList extends Component {
                         </tr>
                     </thead>
                     <tbody>
-                        {/* {this.toyList()} */}
+                        
                         {this.state.toys.map((currenttoy, index) => {
                             return <ToyCard props={currenttoy} deleteToy={this.deleteToy} key={index} />
                         })}
                     </tbody>
-                </table>
+                </table> */}
+                <CardColumns>
+                    {this.state.toys.map((currenttoy, index) => {
+                        return <ToyCard props={currenttoy} deleteToy={this.deleteToy} key={index} />
+                    })}
+
+                </CardColumns>
             </div>
         )
     }
