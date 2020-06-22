@@ -94,24 +94,6 @@ export default class ToyList extends Component {
         return (
             <div>
                 <h3>TOYS</h3>
-                {/* <table className="table">
-                    <thead className="thead-light">
-                        <tr>
-                            <th>Toyname</th>
-                            <th>Description</th>
-                            <th>Condition</th>
-                            <th>Image</th>
-                            <th>Date</th>
-                            <th>Location</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        
-                        {this.state.toys.map((currenttoy, index) => {
-                            return <ToyCard props={currenttoy} deleteToy={this.deleteToy} key={index} />
-                        })}
-                    </tbody>
-                </table> */}
                 <CardColumns>
                     {this.state.toys.map((currenttoy, index) => {
                         return <ToyCard props={currenttoy} deleteToy={this.deleteToy} key={index} />

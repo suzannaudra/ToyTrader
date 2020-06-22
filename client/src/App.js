@@ -7,19 +7,22 @@ import NavigationBar from "./components/Navbar";
 import ToyList from "./pages/ToyList";
 import EditToy from "./components/EditToy";
 import CreateToy from "./components/CreateToy";
-import CreateUser from "./components/CreateUser";
+import UserIdentification from "./pages/UserIdentification";
 import SavedToyList from "./pages/SaveToy";
+import LogInNav from './components/LogInNav';
 
 function App() {
   return (
     <Router>
       <div className="container">
+        <LogInNav />
         <NavigationBar />
         <br />
+        <Route path="/" exact component={ToyList} />
         <Route path="/toys" exact component={ToyList} />
         <Route path="/toys/update" component={EditToy} />
         <Route path="/toys/add" component={CreateToy} />
-        <Route path="/users/add" component={CreateUser} />
+        <Route path="/users/indentify" component={UserIdentification} />
         <Route path="/savedtoys" component={SavedToyList} />
       </div>
     </Router>
