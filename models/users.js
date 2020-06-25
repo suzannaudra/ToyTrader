@@ -12,6 +12,12 @@ const userSchema = new Schema({
   },
 }, {
   timestamps: true,
+  toys: [
+    {
+  type: Schema.Types.ObjectId,
+  ref: "toy"
+  }
+]
 });
 
 const User = mongoose.model('User', userSchema);

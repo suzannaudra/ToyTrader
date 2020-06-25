@@ -9,11 +9,13 @@ const newtoysSchema = new Schema({
   condition: { type: String, required: true },
   image: {  data: Buffer, contentType: String},
   date: { type: Date, default:Date.now },
-  location: { type: String, required: true}
+  location: { type: String, required: true},
+
   }, { 
 
   timestamps: true,
 }); 
+
 
 const newtoy = mongoose.model ('toy', newtoysSchema);
 

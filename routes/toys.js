@@ -2,7 +2,8 @@ const router = require('express').Router();
 let Toy = require('../models/modeltoys');
 
 router.route('/toys').get((req, res) => {
-  Toy.find()
+  Toy.find({})
+  
   .then(toys => res.json(toys))
   .catch(err => res.status(400).json('Error: ' + err));
 });
