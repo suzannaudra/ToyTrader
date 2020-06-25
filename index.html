@@ -10,6 +10,14 @@
       integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
       crossorigin="anonymous"
     />
+
+    <style>
+      .chat-message {
+        font-size: 12px;
+        font-family: Georgia, "Times New Roman", Times, serif;
+        padding-bottom: 0.3rem;
+      }
+    </style>
   </head>
   <body>
     <div class="container">
@@ -77,9 +85,40 @@
 
           // Hooking onto the sockets 'output' function
           socket.on("output", function (data) {
-            console.log(data);
+            //Checking data is not empty
+            if (data.length) {
+              for (let i = 0; i < data.length; i++) {
+                let message = document.createElement("div");
+                message.setAttribute("class", "chat-message");
+                message.textContent = `${data[i].name}: ${data[i].message}`;
+                messages.appendChild(message);
+                messages.insertBefore(message, messages.firstChild);
+              }
+            }
           });
         }
+
+        // Get Status from server
+        socket.on("status", function (data) {
+          setStatus(typeof data === "object" ? data.message : data);
+
+          if (data.clear) {
+            textarea.value = "";
+          }
+        });
+
+        // Handle Input
+        // Will only send message when user enter the returne or enter key
+        textarea.addEventListener("keydown", function (event) {
+          if (event.which === 13 && event.shiftKey === false) {
+            socket.emit("input", {
+              name: username.value,
+              message: textarea.value
+            });
+
+            event.preventDefault();
+          }
+        });
       })();
     </script>
   </body>

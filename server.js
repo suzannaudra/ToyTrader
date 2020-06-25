@@ -38,14 +38,16 @@ mongo.connect("mongodb://localhost:27017/", function (err, monClient) {
       if (!name || !message) {
         sendStatus("Please enter name or message");
       } else {
-        chat.insert({ name: name, message: message }, function () {
-          client.emit("output", [data]);
+        chat
+          .collection("chats")
+          .insertOne({ name: name, message: message }, function () {
+            client.emit("output", [data]);
 
-          sendStatus({
-            message: "Message sent",
-            clear: true
+            sendStatus({
+              message: "Message sent",
+              clear: true
+            });
           });
-        });
       }
     });
     socket.on("clear", function (data) {
