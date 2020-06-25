@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Chat Test</title>
+    <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+      integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+      crossorigin="anonymous"
+    />
+  </head>
+  <body>
+    <div class="container">
+      <div class="row">
+        <div class="col-md-6 offset-md-3 col-sm-12">
+          <h1 class="text-center">
+            Mongo Chat
+            <button class="btn btn-danger" id="clear">Clear</button>
+            <div id="status"></div>
+            <div id="chat">
+              <input
+                type="text"
+                id="username"
+                class="form-control"
+                placeholder="Enter name..."
+              />
+              <br />
+              <div class="card">
+                <div class="card-block" id="messages"></div>
+              </div>
+              <br />
+              <textarea
+                class="form-control"
+                id="textarea"
+                placeholder="Enter message..."
+              ></textarea>
+            </div>
+          </h1>
+        </div>
+      </div>
+    </div>
+    <!-- CDN for Socket.io -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.3.0/socket.io.dev.js"></script>
+
+    <script>
+      (function () {
+        let element = id => {
+          return document.getElementById(id);
+        };
+
+        //Get Elements
+        let status = element("status");
+        let messages = element("messages");
+        let textarea = element("textarea");
+        let username = element("username");
+        let clearBtn = element("clear");
+
+        //Set Default status
+        let statusDefault = status.textContent;
+        let setStatus = s => {
+          status.textContent = s;
+
+          if (s !== statusDefault) {
+            let delay = setTimeout(function () {
+              setStatus(statusDefault);
+            }, 4000);
+          }
+        };
+
+        //Connect to socket.io
+        let socket = io.connect("http://127.0.0.1:3000");
+
+        if (socket !== undefined) {
+          console.log("Connected to socket...");
+
+          // Hooking onto the sockets 'output' function
+          socket.on("output", function (data) {
+            console.log(data);
+          });
+        }
+      })();
+    </script>
+  </body>
+</html>

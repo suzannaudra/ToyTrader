@@ -2,13 +2,13 @@ const mongo = require("mongodb").MongoClient;
 const client = require("socket.io").listen(3000).sockets;
 
 // Creating chat database for testing
-mongo.connect("mongodb://127.0.0.1/mongochat", function (err, db) {
+mongo.connect("mongodb://localhost:27017/", function (err, monClient) {
   if (err) throw err;
   console.log("MongoDB connected...");
 
   // Socket.io connection
   client.on("connection", function (socket) {
-    let chat = db.collection("chats");
+    let chat = monClient.db("mongochat");
 
     //Create function to send status
     // Whenever you want to pass stuff from the server to the client you use the .emit funciton
@@ -18,12 +18,14 @@ mongo.connect("mongodb://127.0.0.1/mongochat", function (err, db) {
 
     // Get chats from mongo collection
     chat
+      .collection("chats")
       .find()
       .limit(100)
       .sort({ _id: 1 })
       .toArray(function (err, result) {
         if (err) throw err;
-        //Emit the messages
+
+        //Emit the messages to the client that requests on 'output'
         socket.emit("output", result);
       });
 
