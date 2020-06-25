@@ -27,7 +27,7 @@ export default class EditToy extends Component {
     }
 
     componentDidMount() {
-        axios.get('http://localhost:3000/toys' + this.props.match.params.id)
+        axios.get('/toys' + this.props.match.params.id)
             .then(response => {
                 this.setState({
                     username: response.data.username,

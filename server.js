@@ -12,9 +12,9 @@ app.use(express.urlencoded({ extended: true }));
 
 
 const routes = require ("./routes/toys.js")
-const userroutes = require ("./routes/users.js")
 app.use (routes);
-app.use (userroutes);
+//const userroutes = require ("./routes/users.js")
+//app.use (userroutes);
 
 // Connect to the Mongo DB
 mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost/toytrader"), { useNewUrlParser: true };
@@ -33,6 +33,7 @@ if (process.env.NODE_ENV === "production") {
 app.get("*", (req, res) => {
   res.sendFile(path.join(__dirname, "./client/build/index.html"));
 });
+
 //Start API server
 const PORT = process.env.PORT || 3001;
 app.listen(PORT, () => {

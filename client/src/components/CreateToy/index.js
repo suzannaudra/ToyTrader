@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import DatePicker from 'react-datepicker';
 import "react-datepicker/dist/react-datepicker.css";
 import axios from 'axios';
+import { MongooseDocument } from 'mongoose';
 
 export default class CreateToy extends Component {
     constructor(props) {
@@ -21,7 +22,7 @@ export default class CreateToy extends Component {
             condition: '',
             location: '',
             image: '',
-            Date: new Date(),
+            Date: ''        
         }
     }
 
@@ -76,10 +77,14 @@ export default class CreateToy extends Component {
 
         console.log(toy);
 
-        axios.post('http://localhost:3000/toys/add', toy)
-            .then(res => console.log(res.data));
+        axios.post('/toys/add', toy)
+            .then(res => {
+                console.log(res.data)
+                window.location = '/'
+            }
+            );
 
-        window.location = '/'
+        
     }
 
 

@@ -7,10 +7,10 @@ router.route('/toys').get((req, res) => {
   .catch(err => res.status(400).json('Error: ' + err));
 });
 
-router.route('/toy/add').post((req, res) => {
+router.route('/toys/add').post((req, res) => {
   const username = req.body.username;
   const description = req.body.description;
-  const date = Date.parse(req.body.date);
+  const date = req.body.date;
   // condition if using number, Number(req.body.condition)
   const condition = req.body.condition;
   const image = req.body.image;
@@ -48,7 +48,7 @@ router.route('/toy/update/:id').post((req,res) => {
   .then(toy => {
     toy.username = req.body.username
     toy.description = req.body.description;
-    toy.date = Date.parse(req.body.date);
+    toy.date = req.body.date;
     toy.condition = req.body.condition;
     toy.image = req.body.image;
    //I'm not sure if this is correct for images 
