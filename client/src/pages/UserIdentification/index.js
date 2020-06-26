@@ -4,7 +4,7 @@ import IdentificationForm from '../../components/IdentificationForm';
 
 export default class Validation extends Component {
     state = {
-        userName: "",
+        email: "",
         password: ""
     }
 
@@ -21,8 +21,20 @@ export default class Validation extends Component {
 
         // Alert the user their first and last name, clear `this.state.firstName` and `this.state.lastName`, clearing the inputs
         alert(`Welcome`);
+
+        const user = {
+            email: this.state.email,
+        }
+
+        axios.get(`http://localhost:3000/users/${user}`)
+            .then(res => {
+                console.log(res.data)
+
+            }).catch()
+
+
         this.setState({
-            userName: "",
+            email: "",
             password: ""
         });
     };
@@ -32,9 +44,15 @@ export default class Validation extends Component {
         event.preventDefault();
 
         // Alert the user their first and last name, clear `this.state.firstName` and `this.state.lastName`, clearing the inputs
-        alert(`Hello ${this.state.userName} ${this.state.password}`);
+        alert(`Hello ${this.state.email}`);
+        const user = {
+            email: this.state.email,
+        }
+        axios.post('http://localhost:3000/users/indentify', user)
+            .then(res => console.log(res.data));
+
         this.setState({
-            userName: "",
+            email: "",
             password: ""
         });
     };
@@ -43,11 +61,11 @@ export default class Validation extends Component {
         return (
             <form className="form">
                 <input
-                    value={this.state.userName}
-                    name="userName"
+                    value={this.state.email}
+                    name="email"
                     onChange={this.handleInputChange}
-                    type="username"
-                    placeholder="Username"
+                    type="email"
+                    placeholder="email"
                 />
                 <input
                     value={this.state.password}
@@ -70,7 +88,7 @@ export default class Validation extends Component {
 //     constructor(props) {
 //         super(props);
 //         //LINE BELOW CAUSES AN ERROR
-//         //this.onChangeusername = this.onChangeusername.bind(this);
+//         //this.onChangeemail = this.onChangeusername.bind(this);
 //         this.onSubmit = this.onSubmit.bind(this);
 
 //         this.state = {

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
-import ToyCard from '../../components/SavedToyCard';
+import ToyCard from '../../components/ToyCard';
 // import savedToy from '../SavedToy';
 import CardColumns from 'react-bootstrap/CardColumns'
 
@@ -11,7 +11,7 @@ export default class ToyList extends Component {
     constructor(props) {
         super(props);
 
-        this.deleteToy = this.deleteToy.bind(this);
+        this.savedtoyList = this.savedtoyList.bind(this);
         this.state = {
             toys: [
                 {
@@ -19,7 +19,7 @@ export default class ToyList extends Component {
                     Username: "Suzann",
                     Description: "doll",
                     Condition: "new",
-                    Image: "https://via.placeholder.com/100",
+                    Image: "https://via.placeholder.com/250",
                     Date: "06/16/2020",
                     Location: "Oakland, CA",
                 },
@@ -28,7 +28,7 @@ export default class ToyList extends Component {
                     Username: "Thuy",
                     Description: "bike",
                     Condition: "new",
-                    Image: "https://via.placeholder.com/100",
+                    Image: "https://via.placeholder.com/250",
                     Date: "06/16/2020",
                     Location: "San Diego, CA",
                 },
@@ -37,7 +37,7 @@ export default class ToyList extends Component {
                     Username: "Angel",
                     Description: "Motorcyle",
                     Condition: "new",
-                    Image: "https://via.placeholder.com/100",
+                    Image: "https://via.placeholder.com/250",
                     Date: "06/16/2020",
                     Location: "San Francisco, CA"
                 },
@@ -46,7 +46,7 @@ export default class ToyList extends Component {
                     Username: "Angel",
                     Description: "Motorcyle",
                     Condition: "new",
-                    Image: "https://via.placeholder.com/100",
+                    Image: "https://via.placeholder.com/250",
                     Date: "06/16/2020",
                     Location: "San Francisco, CA"
                 },
@@ -55,7 +55,7 @@ export default class ToyList extends Component {
                     Username: "Angel",
                     Description: "Motorcyle",
                     Condition: "new",
-                    Image: "https://via.placeholder.com/100",
+                    Image: "https://via.placeholder.com/250",
                     Date: "06/16/2020",
                     Location: "San Francisco, CA"
                 }
@@ -75,19 +75,19 @@ export default class ToyList extends Component {
         // })
     }
 
-    deleteToy(id) {
-        axios.delete('http://localhost:3000/toys/' + id)
-            .then(res => console.log(res.data));
-
-        this.setState({
-            toys: this.state.toys.filter(el => el._id !== id)
-        })
-    }
-
     toyList() {
         return this.state.toys.map((currenttoy, index) => {
             return <ToyCard props={currenttoy} deleteToy={this.deleteToy} key={index} />
         })
+    }
+
+    savedtoyList(currenttoy) {
+
+        axios.post('http://localhost:3000/savedToys', currenttoy)
+
+
+            .then(res => console.log(res.data));
+
     }
 
     render() {
@@ -96,7 +96,11 @@ export default class ToyList extends Component {
                 <h3>TOYS</h3>
                 <CardColumns>
                     {this.state.toys.map((currenttoy, index) => {
-                        return <ToyCard props={currenttoy} deleteToy={this.deleteToy} key={index} />
+                        return <ToyCard
+                            props={currenttoy}
+                            savedtoyList={this.savedtoyList}
+                            key={index}
+                        />
                     })}
 
                 </CardColumns>

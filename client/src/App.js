@@ -5,11 +5,13 @@ import "bootstrap/dist/css/bootstrap.min.css";
 
 import NavigationBar from "./components/Navbar";
 import ToyList from "./pages/ToyList";
+import Toy from "./pages/Toy";
 import EditToy from "./components/EditToy";
 import CreateToy from "./components/CreateToy";
 import UserIdentification from "./pages/UserIdentification";
 import SavedToyList from "./pages/SaveToy";
 import LogInNav from './components/LogInNav';
+import CarouselSlider from './components/CarouselSlider';
 
 function App() {
   return (
@@ -17,6 +19,7 @@ function App() {
       <div className="container">
         <LogInNav />
         <NavigationBar />
+        <CarouselSlider />
         <br />
         <Route path="/" exact component={ToyList} />
         <Route path="/toys" exact component={ToyList} />
@@ -24,6 +27,7 @@ function App() {
         <Route path="/toys/add" component={CreateToy} />
         <Route path="/users/indentify" component={UserIdentification} />
         <Route path="/savedtoys" component={SavedToyList} />
+        <Route path="/toy" component={Toy} />
       </div>
     </Router>
 
