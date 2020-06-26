@@ -9,6 +9,7 @@ function initialize(passport, getUserByEmail, getUserById) {
     }
 
     try {
+      // Bcrypt will compared hashed entered password and hashed stored password
       if (await bcrypt.compare(password, user.password)) {
         return done(null, user);
       } else {
@@ -18,10 +19,14 @@ function initialize(passport, getUserByEmail, getUserById) {
       return done(e);
     }
   };
+  // Email and password Authentication logic
   passport.use(new LocalStrategy({ usernameField: "email" }, authenticateUser));
+
+  // User has been authenticated and can use functionality
   passport.serializeUser((user, done) => {
     done(null, user.id);
   });
+  // Deauthenticate the user
   passport.deserializeUser((id, done) => {
     done(null, getUserById(id));
   });

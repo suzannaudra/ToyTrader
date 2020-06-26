@@ -4,23 +4,29 @@ if (process.env.NODE_ENV !== "production") {
 
 const express = require("express");
 const app = express();
+
+// Other node modules needed for passport/auth
 const bcrypt = require("bcrypt");
 const flash = require("express-flash");
 const session = require("express-session");
 
 // Can store users on database
+// Mongo Database
 const users = [];
 
 const passport = require("passport");
+
 const initializePassport = require("./passport-config");
 initializePassport(
   passport,
-  email => users.find(user => user.email === email),
-  id => users.find(user => user.id === id)
+  email => users.find(user => user.email === email), // Function that finds the user based off the entered email
+  id => users.find(user => user.id === id) // Mongo _id column
 );
 
 app.set("view-engine", "ejs");
 app.use(express.urlencoded({ extended: false }));
+
+// Sets up passport messaging and session auth
 app.use(flash());
 app.use(
   session({
@@ -32,6 +38,7 @@ app.use(
 
 app.use(passport.initialize());
 app.use(passport.session());
+
 // Home Route
 app.get("/", checkAuthenticated, (req, res) => {
   res.render("index.ejs", { name: req.user.name });
