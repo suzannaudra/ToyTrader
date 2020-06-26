@@ -4,31 +4,17 @@ import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import logo from '../Image/fun-logo.png'
 import { Container } from 'react-bootstrap';
-import Button from 'react-bootstrap/Button'
 import { Link } from 'react-router-dom';
 
 
 class LogInNav extends Component {
-    // state = {
-    //     userIsRegistered: false
-    // };
-
-    // logIn = event => {
-    //     event.preventDefault();
-    //     this.setState({ userIsRegistered: true })
-    // }
-
-    // signUp = event => {
-    //     event.preventDefault();
-    //     this.setState({ userIsRegistered: false })
-    // }
 
     render() {
         return (
             <Container fluid>
                 <Row>
                     <Col>
-                        <img src={logo} />
+                        <img src={logo} alt="Fun Ex Change Logo" />
                     </Col>
                     <Col xs lg="1" className="px-1 pt-5 text-right">
                         <Link to={{
