@@ -1,4 +1,8 @@
-/* .cardImg{
-    max-width: 305px;
-    min-width: 300px;
-} */
+.cardImg{
+    margin-top: 0;
+}
+
+.favorite:focus {
+    outline: none;
+    
+}

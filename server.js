@@ -3,6 +3,9 @@ if (process.env.NODE_ENV !== "production") {
   require("dotenv").config();
 }
 
+// Define User Model for passport functionality
+let User = require("./models/users");
+
 const express = require("express");
 const app = express();
 
@@ -10,35 +13,64 @@ const app = express();
 const bcrypt = require("bcrypt");
 const flash = require("express-flash");
 const session = require("express-session");
-
-// Can store users on database
-// Mongo Database
-const users = [];
-
 const passport = require("passport");
 
-const initializePassport = require("./passport-config");
+// Middle-ware package for ajax
+const cors = require("cors");
+const mongoose = require("mongoose");
+const path = require("path");
+
+const initializePassport = require("./backend/passport-config");
 initializePassport(
   passport,
-  email => users.find(user => user.email === email), // Function that finds the user based off the entered email
-  id => users.find(user => user.id === id) // Mongo _id column
+  email => {
+    User.find({ email: email });
+  }, // Function that finds the user based off the entered email
+  id => {
+    User.findById(id);
+  } // Mongo _id column
 );
 
-app.set("view-engine", "ejs");
-app.use(express.urlencoded({ extended: false }));
+// in our mongoose db/user collection find me a user with this email
+
+// Ajax and parsing setup
+app.use(cors());
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 
 // Sets up passport messaging and session auth
 app.use(flash());
 app.use(
   session({
-    secret: process.env.SESSION_SECRET,
+    secret: process.env.SESSION_SECRET, // Environment variable
     resave: false,
     saveUninitialized: false
   })
 );
-
 app.use(passport.initialize());
 app.use(passport.session());
+
+// Setting up the Routing folder
+const routes = require("./routes");
+app.use(routes);
+
+// Connect to the Mongo DB
+mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost/toytrader"),
+  { useNewUrlParser: true };
+const connection = mongoose.connection;
+connection.once("open", () => {
+  console.log("MongoDB connection established successfully");
+});
+
+// Serve up static assets ( on heroku)
+if (process.env.NODE_ENV === "production") {
+  app.use(express.static("client/build"));
+}
+
+// //This will eventually be fetched from within client side React app
+// app.get("*", (req, res) => {
+//   res.sendFile(path.join(__dirname, "./client/build/index.html"));
+// });
 
 // Home Route
 app.get("/", checkAuthenticated, (req, res) => {
@@ -49,7 +81,7 @@ app.get("/login", checkNotAuthenticated, (req, res) => {
   res.render("login.ejs");
 });
 
-// Authenticate user
+// Authenticate user api request
 app.post(
   "/login",
   passport.authenticate("local", {
@@ -104,47 +136,6 @@ function checkNotAuthenticated(req, res, next) {
   }
   return next();
 }
-app.listen(3000);
-
-
-
-
-// Incoming Code
-const express = require('express');
-const cors = require('cors');
-const mongoose = require('mongoose')
-const path = require("path");
-
-require('dotenv').config();
-
-const app = express();
-app.use(cors());
-app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
-
-
-const routes = require ("./routes/toys.js")
-app.use (routes);
-//const userroutes = require ("./routes/users.js")
-//app.use (userroutes);
-
-// Connect to the Mongo DB
-mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost/toytrader"), { useNewUrlParser: true };
-const connection = mongoose.connection;
-connection.once('open', () => {
-  console.log("MongoDB connection established successfully")
-});
-
-// Serve up static assets ( on heroku)
-if (process.env.NODE_ENV === "production") {
-  app.use(express.static("client/build"));
-}
-
-
-//This will eventually be fetched from within client side React app
-app.get("*", (req, res) => {
-  res.sendFile(path.join(__dirname, "./client/build/index.html"));
-});
 
 //Start API server
 const PORT = process.env.PORT || 3001;
