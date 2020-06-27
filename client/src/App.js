@@ -10,7 +10,7 @@ import CreateToy from "./components/CreateToy";
 import UserIdentification from "./pages/UserIdentification";
 import SavedToyList from "./pages/SaveToy";
 import LogInNav from './components/LogInNav';
-
+import ProductPage from './pages/Product page';
 function App() {
   return (
     <Router>
@@ -24,6 +24,7 @@ function App() {
         <Route path="/toys/add" component={CreateToy} />
         <Route path="/users/indentify" component={UserIdentification} />
         <Route path="/savedtoys" component={SavedToyList} />
+        <Route path="/productpage" exact component={ProductPage} />
       </div>
     </Router>
 
