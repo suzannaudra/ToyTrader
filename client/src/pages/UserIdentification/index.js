@@ -1,6 +1,8 @@
 import React, { Component } from "react";
 import axios from "axios";
 import IdentificationForm from "../../components/IdentificationForm";
+import { LogIn } from "../../components/LogIn";
+import SignUp from "../../components/SignUp";
 
 export default class Validation extends Component {
   state = {
@@ -30,7 +32,7 @@ export default class Validation extends Component {
     };
 
     axios
-      .get(`http://localhost:3000/users/${user}`)
+      .post("http://localhost:3000/user/login", user)
       .then(res => {
         console.log(res.data);
       })
@@ -68,44 +70,23 @@ export default class Validation extends Component {
   render() {
     return (
       <form className="form">
-        <input
-          value={this.state.firstName}
-          name="firstName"
-          onChange={this.handleInputChange}
-          type="text"
-          placeholder="First Name"
-        />
-        <input
-          value={this.state.lastName}
-          name="lastName"
-          onChange={this.handleInputChange}
-          type="text"
-          placeholder="Last Name"
-        />
-        <input
-          value={this.state.email}
-          name="email"
-          onChange={this.handleInputChange}
-          type="email"
-          placeholder="Email"
-        />
-        <input
-          value={this.state.password}
-          name="password"
-          onChange={this.handleInputChange}
-          type="password"
-          placeholder="Password"
-        />
-        <IdentificationForm
-          // The button clicked will determine which handle event to trigger
-          // If they clicked login then the user `is registered`
-          onClick={
-            this.props.location.state.isResgister === true
-              ? this.handleLogIn
-              : this.handleSignUp
-          }
-          isResgister={this.props.location.state.isResgister}
-        />
+        {this.props.location.state.isResgister === true ? (
+          <LogIn
+            email={this.state.email}
+            password={this.state.password}
+            onClick={this.handleLogIn}
+            onChange={this.handleInputChange}
+          />
+        ) : (
+          <SignUp
+            firstName={this.state.firstName}
+            lastName={this.state.lastName}
+            email={this.state.email}
+            password={this.state.password}
+            onClick={this.handleSignUp}
+            onChange={this.handleInputChange}
+          />
+        )}
       </form>
     );
   }

@@ -16,7 +16,6 @@ router.route("/user/add").post(async (req, res) => {
   const lastName = req.body.lastName;
   const email = req.body.email;
   const password = req.body.password;
-
   try {
     // User bcrypt to get a hashed password for security purposes
     bcrypt.hash(password, 10, function (err, hashedPassword) {
@@ -33,7 +32,10 @@ router.route("/user/add").post(async (req, res) => {
       newUser
         .save()
         .then(() => res.json("User added!"))
-        .catch(err => res.status(400).json("Error: " + err)); //Better Error messaging
+        .catch(err => {
+          console.log(err);
+          res.status(400).json("Error: " + err);
+        }); //Better Error messaging
     });
   } catch (err) {
     throw err;

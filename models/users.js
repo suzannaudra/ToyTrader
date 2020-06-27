@@ -22,7 +22,7 @@ const userSchema = new Schema(
     hashedPassword: {
       type: String,
       required: true,
-      unique: true,
+      unique: false,
       trim: true
     }
     // location:
