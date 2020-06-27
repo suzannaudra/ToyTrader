@@ -19,17 +19,24 @@ router.route("/user/add").post(async (req, res) => {
 
   try {
     // User bcrypt to get a hashed password for security purposes
-    const hashedPassword = await bcrypt.hash(password, 10);
-    //Add the new user to the user database
-    // User the current date to create a unique ID
-    // Creating new User Model
-    const newUser = new User({ firstName, lastName, email, hashedPassword });
+    bcrypt.hash(password, 10, function (err, hashedPassword) {
+      //Add the new user to the user database
+      const newUser = new User({ firstName, lastName, email, hashedPassword });
 
-    console.log(newUser);
-    // Saves the new user only if the email is unique/not a duplicate
-    newUser.save().then(() => res.json("User added!"));
+      console.log(hashedPassword);
+      // Saves the new user only if the email is unique/not a duplicate
+
+      console.log(newUser);
+
+      // User the current date to create a unique ID
+      // Creating new User Model
+      newUser
+        .save()
+        .then(() => res.json("User added!"))
+        .catch(err => res.status(400).json("Error: " + err)); //Better Error messaging
+    });
   } catch (err) {
-    res.status(400).json("Error: " + err);
+    throw err;
   }
 });
 
