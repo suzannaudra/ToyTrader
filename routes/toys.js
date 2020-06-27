@@ -5,7 +5,7 @@ router.route("/toys").get((req, res) => {
   Toy.find({})
 
     .then(toys => res.json(toys))
-    .catch(err => res.status(400).json("Error: " + err));
+    .catch(err => res.status(400).json("can not route to /toys " + err));
 });
 
 router.route("/toys/add").post((req, res) => {
@@ -29,7 +29,7 @@ router.route("/toys/add").post((req, res) => {
 
   addedToy.save()
     .then(() => res.json("Toy added!"))
-    .catch(err => res.status(400).json("Error: " + err));
+    .catch(err => res.status(400).json("Toy not saved" + err));
 });
 
 router.route("/toy/:id").get((req, res) => {
@@ -41,7 +41,7 @@ router.route("/toy/:id").get((req, res) => {
 router.route("/toy/:id").delete((req, res) => {
   Toy.findByIdAndDelete(req.params.id)
     .then(() => res.json("Toy deleted."))
-    .catch(err => res.status(400).json("Error: " + err));
+    .catch(err => res.status(400).json("Toy not deleted " + err));
 });
 
 router.route("/toy/update/:id").post((req, res) => {
@@ -58,7 +58,7 @@ router.route("/toy/update/:id").post((req, res) => {
       toy
         .save()
         .then(() => res.json("Toy updated."))
-        .catch(err => res.status(400).json("Error: " + err));
+        .catch(err => res.status(400).json("Toy not updated " + err));
     })
     .catch(err => res.status(400).json("Error: " + err));
 });

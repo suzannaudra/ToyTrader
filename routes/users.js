@@ -43,7 +43,7 @@ router.route("/user/add").post(async (req, res) => {
 });
 
 //Replace id with actual userid
-router.route("/user/update/:id").post((req, res) => {
+router.route("/user/update/:_id").post((req, res) => {
   User.findByIdAndUpdate(req.params.id, {
     $push: { toys: req.body.toy_id }
   }).then(user => res.json("Saved Favorite Toy"));
