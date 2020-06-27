@@ -1,0 +1,78 @@
+
+
+body {
+  font-family: 'PT Sans', sans-serif;
+  /* padding: 2rem; */
+}
+button {
+  border: none;
+  border-radius: 0.25rem;
+  font-size: 0.75rem;
+  font-weight: bold;
+  padding: 0.75em;  
+  display: inline-block;
+  text-decoration: none;
+  
+  
+}
+.comment-box {
+  
+  
+  color: purple;
+  background-color: 0;
+  border-radius: 0.875rem;
+  
+ 
+}
+
+h2, h3, h4 {
+  text-align: center;
+}
+
+.comment-list {
+  text-align: center;
+}
+
+.comment-count {
+  text-decoration: underline;
+}
+.comment-form {
+  
+  border-radius: 0.25rem;
+  margin-bottom: 2rem;
+    
+}
+.comment-form-fields {
+  margin-bottom: 0.25rem;
+  }
+  textarea {
+    font-style: italic;
+  }
+.comment-header {
+  color: orange;
+  
+}
+  
+
+
+#comment-reveal {
+  float: right;
+  background-color: nc-blue;
+  color: #fff;
+}
+.comment {
+  border-top: 0.125rem solid dark-grey;
+}
+.comment-body {
+  font-style: italic;
+ 
+  border: solid black;
+}
+.comment-footer {
+  margin-bottom: 1rem;
+}
+.comment-footer-delete {
+  
+  color: red;
+  text-decoration: none;
+}
