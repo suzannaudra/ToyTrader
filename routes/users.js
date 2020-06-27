@@ -1,5 +1,6 @@
 const router = require("express").Router();
 let User = require("../models/users");
+const passport = require("../backend/passport");
 const bcrypt = require("bcrypt");
 
 // Will get all the toys the user has listed
@@ -11,35 +12,48 @@ router.route("/user").get((req, res) => {
 });
 
 // Will add a new user
-router.route("/user/add").post(async (req, res) => {
+router.route("/user/add").post((req, res) => {
+  console.log("============User============");
+  console.log(req.user);
+  req.session;
   const firstName = req.body.firstName;
   const lastName = req.body.lastName;
   const email = req.body.email;
-  const password = req.body.password;
+  const hashedPassword = req.body.password; //Not really hashed atm, but will be hashed in the pre() for the user schema
   try {
-    // User bcrypt to get a hashed password for security purposes
-    bcrypt.hash(password, 10, function (err, hashedPassword) {
-      //Add the new user to the user database
-      const newUser = new User({ firstName, lastName, email, hashedPassword });
+    const newUser = new User({ firstName, lastName, email, hashedPassword });
 
-      console.log(hashedPassword);
-      // Saves the new user only if the email is unique/not a duplicate
+    // Saves the new user only if the email is unique/not a duplicate
+    console.log(newUser);
 
-      console.log(newUser);
-
-      // User the current date to create a unique ID
-      // Creating new User Model
-      newUser
-        .save()
-        .then(() => res.json("User added!"))
-        .catch(err => {
-          console.log(err);
-          res.status(400).json("Error: " + err);
-        }); //Better Error messaging
-    });
+    // User the current date to create a unique ID
+    // Creating new User Model
+    newUser
+      .save()
+      .then(() => res.json("User added!"))
+      .catch(err => {
+        console.log(err);
+        res.status(400).json("Error: " + err);
+      }); //TODO Better Error messaging
   } catch (err) {
     throw err;
   }
+});
+
+// API route to get user when they try to login
+router.route("/user/login").post(passport.authenticate("local"), (req, res) => {
+  console.log("Logged in", req.user);
+  let userInfo = {
+    email: req.user.email
+  };
+  res.send(userInfo);
+});
+
+// API route to logout the user
+router.route("/user/logout").get((req, res) => {
+  console.log(req.user);
+  req.logout();
+  res.send({ msg: "logging out" });
 });
 
 //Replace id with actual userid

@@ -10,14 +10,28 @@ const app = express();
 const bcrypt = require("bcrypt");
 const flash = require("express-flash");
 const session = require("express-session");
-
 const passport = require("./backend/passport"); //Preconfigured Passport object
+const MongoStore = require("connect-mongo")(session);
 
 // Middle-ware package for ajax
 const cors = require("cors");
 const mongoose = require("mongoose");
+mongoose.Promise = global.Promise;
 
-// in our mongoose db/user collection find me a user with this email
+// Connect to the Mongo DB
+mongoose
+  .connect(process.env.MONGODB_URI || "mongodb://localhost/toytrader", {
+    useNewUrlParser: true
+  })
+  .then(
+    () => console.log("Connected to Mongo"),
+    err => {
+      console.log("Error connecting to Mongo");
+      console.log(err);
+    }
+  );
+
+const connection = mongoose.connection;
 
 // Ajax and parsing setup
 app.use(cors());
@@ -28,7 +42,8 @@ app.use(express.urlencoded({ extended: true }));
 app.use(flash());
 app.use(
   session({
-    secret: process.env.SESSION_SECRET, // Environment variable
+    secret: process.env.SESSION_SECRET, // Environment variable,
+    store: new MongoStore({ mongooseConnection: connection }),
     resave: false,
     saveUninitialized: false
   })
@@ -37,7 +52,9 @@ app.use(passport.initialize());
 app.use(passport.session()); // will call serializeUser and deserializeUser
 
 // Console log the session object
-app.use((req, res, next) => {
+app.use("*", (req, res, next) => {
+  console.log("============User============");
+  console.log(req.user);
   console.log("req.session ", req.session);
   next();
 });
@@ -46,23 +63,10 @@ app.use((req, res, next) => {
 const routes = require("./routes");
 app.use(routes);
 
-// Connect to the Mongo DB
-mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost/toytrader"),
-  { useNewUrlParser: true };
-const connection = mongoose.connection;
-connection.once("open", () => {
-  console.log("MongoDB connection established successfully");
-});
-
 // Serve up static assets ( on heroku)
 if (process.env.NODE_ENV === "production") {
   app.use(express.static("client/build"));
 }
-
-// //This will eventually be fetched from within client side React app
-// app.get("*", (req, res) => {
-//   res.sendFile(path.join(__dirname, "./client/build/index.html"));
-// });
 
 // Home Route
 // app.get("/", checkAuthenticated, (req, res) => {
@@ -74,24 +78,24 @@ if (process.env.NODE_ENV === "production") {
 // });
 
 // Authenticate user api request
-app.post(
-  "/login",
-  passport.authenticate("local", {
-    successRedirect: "/",
-    failureRedirect: "/login",
-    failureFlash: true
-  })
-);
+// app.post(
+//   "/login",
+//   passport.authenticate("local", {
+//     successRedirect: "/",
+//     failureRedirect: "/login",
+//     failureFlash: true
+//   })
+// );
 
 //Register user page
 // app.get("/register", checkNotAuthenticated, (req, res) => {
 //   res.render("register.ejs");
 // });
 
-app.get("/logout", (req, res) => {
-  req.logOut();
-  res.redirect("/login");
-});
+// app.get("/logout", (req, res) => {
+//   req.logOut();
+//   res.redirect("/login");
+// });
 
 app.post("/register", checkNotAuthenticated, async (req, res) => {
   try {
