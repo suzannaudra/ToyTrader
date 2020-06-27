@@ -10,23 +10,12 @@ const app = express();
 const bcrypt = require("bcrypt");
 const flash = require("express-flash");
 const session = require("express-session");
-const passport = require("passport");
+
+const passport = require("./backend/passport"); //Preconfigured Passport object
 
 // Middle-ware package for ajax
 const cors = require("cors");
 const mongoose = require("mongoose");
-
-//
-const initializePassport = require("./backend/passport-config");
-initializePassport(
-  passport,
-  email => {
-    User.find({ email: email });
-  }, // Function that finds the user based off the entered email
-  id => {
-    User.findById(id);
-  } // Mongo _id column
-);
 
 // in our mongoose db/user collection find me a user with this email
 
