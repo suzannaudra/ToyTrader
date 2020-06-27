@@ -1,7 +1,4 @@
-// Passport Code
-if (process.env.NODE_ENV !== "production") {
-  require("dotenv").config();
-}
+require("dotenv").config();
 
 // Define User Model for passport functionality
 let User = require("./models/users");
@@ -18,8 +15,8 @@ const passport = require("passport");
 // Middle-ware package for ajax
 const cors = require("cors");
 const mongoose = require("mongoose");
-const path = require("path");
 
+//
 const initializePassport = require("./backend/passport-config");
 initializePassport(
   passport,
@@ -73,13 +70,13 @@ if (process.env.NODE_ENV === "production") {
 // });
 
 // Home Route
-app.get("/", checkAuthenticated, (req, res) => {
-  res.render("index.ejs", { name: req.user.name });
-});
+// app.get("/", checkAuthenticated, (req, res) => {
+//   res.render("index.ejs", { name: req.user.name });
+// });
 
-app.get("/login", checkNotAuthenticated, (req, res) => {
-  res.render("login.ejs");
-});
+// app.get("/login", checkNotAuthenticated, (req, res) => {
+//   res.render("login.ejs");
+// });
 
 // Authenticate user api request
 app.post(
@@ -92,9 +89,9 @@ app.post(
 );
 
 //Register user page
-app.get("/register", checkNotAuthenticated, (req, res) => {
-  res.render("register.ejs");
-});
+// app.get("/register", checkNotAuthenticated, (req, res) => {
+//   res.render("register.ejs");
+// });
 
 app.get("/logout", (req, res) => {
   req.logOut();
@@ -142,3 +139,5 @@ const PORT = process.env.PORT || 3001;
 app.listen(PORT, () => {
   console.log(`Server is running on port: ${PORT}`);
 });
+
+module.exports = passport;
