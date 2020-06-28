@@ -1,168 +1,179 @@
-import React, { Component } from 'react';
-import DatePicker from 'react-datepicker';
+import React, { Component } from "react";
+import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
-import axios from 'axios';
-
+import axios from "axios";
 
 export default class EditToy extends Component {
-    constructor(props) {
-        super(props);
+  constructor(props) {
+    super(props);
 
-        //this.onChangeusername = this.onChangeusername.bind(this);
-        this.onChangedescription = this.onChangedescription.bind(this);
-        this.onChangecondition = this.onChangecondition.bind(this);
-        this.onChangelocation = this.onChangelocation.bind(this);
-        this.onChangeimage = this.onChangeimage.bind(this);
-        this.onChangedate = this.onChangedate.bind(this);
-        this.onSubmit = this.onSubmit.bind(this);
+    //this.onChangeusername = this.onChangeusername.bind(this);
+    this.onChangedescription = this.onChangedescription.bind(this);
 
-        this.state = {
-            username: '',
-            description: '',
-            condition: '',
-            location: '',
-            image: '',
-            Date: new Date(),
-        }
-    }
+    this.onChangecondition = this.onChangecondition.bind(this);
+    this.onChangelocation = this.onChangelocation.bind(this);
+    this.onChangeimage = this.onChangeimage.bind(this);
+    this.onChangedate = this.onChangedate.bind(this);
+    this.onSubmit = this.onSubmit.bind(this);
 
-    componentDidMount() {
-        axios.get('/toys' + this.props.match.params.id)
-            .then(response => {
-                this.setState({
-                    username: response.data.username,
-                    description: response.data.description,
-                    condition: response.data.condition,
-                    location: response.data.location,
-                    image: response.data.image,
-                    date: new Date(response.data.date)
-                })
-            })
-    }
+    this.state = {
+      userid: "",
 
-    onChangeUsername(e) {
-        this.setState({
-            username: e.target.value
-        })
-    }
+      description: "",
+      condition: "",
+      location: "",
+      image: "",
+      Date: new Date()
+    };
+  }
 
-    onChangedescription(e) {
-        this.setState({
-            description: e.target.value
-        });
-    }
+  componentDidMount() {
+    axios.get("/toys" + this.props.match.params.id).then(response => {
+      this.setState({
+        userid: response.data.userid,
+        description: response.data.description,
+        condition: response.data.condition,
+        location: response.data.location,
+        image: response.data.image,
+        date: new Date(response.data.date)
+      });
+    });
+  }
 
-    onChangecondition(e) {
-        this.setState({
-            condition: e.target.value
-        });
-    }
+  onChangeUsername(e) {
+    this.setState({
+      userid: e.target.value
+    });
+  }
 
-    onChangelocation(e) {
-        this.setState({
-            location: e.target.value
-        });
-    }
+  onChangedescription(e) {
+    this.setState({
+      description: e.target.value
+    });
+  }
 
-    onChangedate(Date) {
-        this.setState({
-            Date: Date
-        });
-    }
+  onChangecondition(e) {
+    this.setState({
+      condition: e.target.value
+    });
+  }
 
-    onChangeimage(e) {
-        this.setState({
-            image: e.target.value
-        });
-    }
+  onChangelocation(e) {
+    this.setState({
+      location: e.target.value
+    });
+  }
 
-    onSubmit(e) {
-        e.preventDefault();
+  onChangedate(Date) {
+    this.setState({
+      Date: Date
+    });
+  }
 
-        const toy = {
-            username: this.state.username,
-            description: this.state.description,
-            condition: this.state.condition,
-            location: this.state.location,
-            image: this.state.image,
-            Date: this.state.Date
+  onChangeimage(e) {
+    this.setState({
+      image: e.target.value
+    });
+  }
 
-        }
+  onSubmit(e) {
+    e.preventDefault();
 
-        console.log(toy);
+    const toy = {
+      userid: this.state.userid,
+      description: this.state.description,
+      condition: this.state.condition,
+      location: this.state.location,
+      image: this.state.image,
+      Date: this.state.Date
+    };
 
-        axios.post('http://localhost:3000/toys' + this.props.match.params.id, toy)
-            .then(res => console.log(res.data));
+    console.log(toy);
 
-        window.location = '/'
-    }
+    axios
+      .post("http://localhost:3000/toys" + this.props.match.params.id, toy)
+      .then(res => console.log(res.data));
 
+    window.location = "/";
+  }
 
-    render() {
-        return (
+  render() {
+    return (
+      <div>
+        <h3>Edit Toy</h3>
+        <form onSubmit={this.onSubmit}>
+          <div className="form-group">
+            <label>userid:</label>
+            <input
+              type="text"
+              required
+              className="form-control"
+              value={this.state.userid}
+              onChange={this.onChangeUsername}
+            />
+          </div>
+          <div className="form-group">
+            <label> description: </label>
+            <input
+              type="text"
+              required
+              className="form-control"
+              value={this.state.description}
+              onChange={this.onChangedescription}
+            />
+          </div>
+          <div className="form-group">
+            <label> condition: </label>
+            <input
+              type="text"
+              required
+              className="form-control"
+              value={this.state.condition}
+              onChange={this.onChangecondition}
+            />
+          </div>
+          <div className="form-group">
+            <label> location: </label>
+            <input
+              type="text"
+              required
+              className="form-control"
+              value={this.state.location}
+              onChange={this.onChangelocation}
+            />
+          </div>
+          <div className="form-group">
+            <label> image: </label>
+            <input
+              type="image"
+              alt="toyimage"
+              required
+              className="form-control"
+              //NOT SURE IF THIS IMAGE INPUT IS CORRECT
+              value={this.state.image}
+              onChange={this.onChangeimage}
+            />
+          </div>
+          <div className="form-group">
+            <label> Date: </label>
             <div>
-                <h3>Edit Toy</h3>
-                <form onSubmit={this.onSubmit}>
-                    <div className="form-group">
-                        <label>username:</label>
-                        <input type="text"
-                            required
-                            className="form-control"
-                            value={this.state.username}
-                            onChange={this.onChangeUsername} />
-                    </div>
-                    <div className="form-group">
-                        <label> description: </label>
-                        <input type="text"
-                            required
-                            className="form-control"
-                            value={this.state.description}
-                            onChange={this.onChangedescription}
-                        />
-                    </div>
-                    <div className="form-group">
-                        <label> condition: </label>
-                        <input type="text"
-                            required
-                            className="form-control"
-                            value={this.state.condition}
-                            onChange={this.onChangecondition}
-                        />
-                    </div>
-                    <div className="form-group">
-                        <label> location: </label>
-                        <input type="text"
-                            required
-                            className="form-control"
-                            value={this.state.location}
-                            onChange={this.onChangelocation}
-                        />
-                    </div>
-                    <div className="form-group">
-                        <label> image: </label>
-                        <input type="image" alt="toyimage"
-                            required
-                            className="form-control"
-                            //NOT SURE IF THIS IMAGE INPUT IS CORRECT
-                            value={this.state.image}
-                            onChange={this.onChangeimage}
-                        />
-                    </div>
-                    <div className="form-group">
-                        <label> Date: </label>
-                        <div>
-                            <DatePicker
-                                selected={this.state.Date}
-                                onChange={this.onChangedate}
-                            />
-                        </div>
-                    </div>
-
-                    <div className="form-group">
-                        <input type="submit" value="Edit Toy" className="btn btn-primary" />
-                    </div>
-                </form>
+              <DatePicker
+                selected={this.state.Date}
+                onChange={this.onChangedate}
+              />
             </div>
-        )
-    }
+          </div>
+
+          <div className="form-group">
+            <input type="submit" value="Edit Toy" className="btn btn-primary" />
+          </div>
+        </form>
+      </div>
+    );
+  }
+}       </form>
+      </div>
+    );
+  }
 }
+

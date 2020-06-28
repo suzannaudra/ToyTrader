@@ -8,8 +8,10 @@ router.route("/toys").get((req, res) => {
     .catch(err => res.status(400).json("can not route to /toys " + err));
 });
 
+// Adds a new toy to the collection
 router.route("/toys/add").post((req, res) => {
-  const username = req.body.username;
+  const userid = req.body.userid;
+  const toyname = req.body.toyname;
   const description = req.body.description;
   const date = req.body.date;
   // condition if using number, Number(req.body.condition)
@@ -19,7 +21,8 @@ router.route("/toys/add").post((req, res) => {
   const location = req.body.location;
 
   const addedToy = new Toy({
-    username,
+    userid,
+    toyname,
     description,
     date,
     condition,
@@ -27,17 +30,20 @@ router.route("/toys/add").post((req, res) => {
     location
   });
 
-  addedToy.save()
+  addedToy
+    .save()
     .then(() => res.json("Toy added!"))
     .catch(err => res.status(400).json("Toy not saved" + err));
 });
 
+//Finds a toy by certain toy ID
 router.route("/toy/:id").get((req, res) => {
   Toy.findById(req.params.id)
     .then(toy => res.json(toy))
     .catch(err => res.status(400).json("Error: " + err));
 });
 
+// Poster wants to remove toy listing
 router.route("/toy/:id").delete((req, res) => {
   Toy.findByIdAndDelete(req.params.id)
     .then(() => res.json("Toy deleted."))
@@ -47,7 +53,8 @@ router.route("/toy/:id").delete((req, res) => {
 router.route("/toy/update/:id").post((req, res) => {
   Toy.findById(req.params.id)
     .then(toy => {
-      toy.username = req.body.username;
+      toy.userid = req.body.userid;
+      toy.toyname = req.body.toyname;
       toy.description = req.body.description;
       toy.date = req.body.date;
       toy.condition = req.body.condition;
