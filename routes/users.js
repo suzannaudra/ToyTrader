@@ -15,7 +15,8 @@ router.route("/user").get((req, res) => {
 router.route("/user/add").post((req, res) => {
   console.log("============User============");
   console.log(req.user);
-  req.session;
+  console.log(req.session);
+
   const firstName = req.body.firstName;
   const lastName = req.body.lastName;
   const email = req.body.email;
@@ -44,7 +45,7 @@ router.route("/user/add").post((req, res) => {
 router.route("/user/login").post(passport.authenticate("local"), (req, res) => {
   console.log("Logged in", req.user);
   let userInfo = {
-    email: req.user.email
+    _id: req.user._id
   };
   res.send(userInfo);
 });

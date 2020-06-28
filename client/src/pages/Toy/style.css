@@ -1,0 +1,31 @@
+@media only screen and (max-width: 414px) {
+  .description-text {
+    padding: 10px 0px;
+  }
+}
+
+.card-body {
+  background-color: #ffc107;
+  border-color: #ffc107;
+}
+
+.material-icons {
+  font-size: 50px;
+}
+
+.favorite {
+  color: red;
+}
+
+.share {
+  color: blue;
+}
+
+.more {
+  color: green;
+}
+
+.centerrow {
+  display: flex;
+  justify-content: center;
+}
