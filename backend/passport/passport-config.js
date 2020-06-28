@@ -4,7 +4,7 @@ const User = require("../../models/users");
 // Define the local strategy for passport to use in order to authenticate users
 const strategy = new LocalStrategy(
   {
-    usernameField: "email" //Passport usernameField is mapped by user's email
+    usernameField: "email" //Passport usernameField will be mapped by user's email
   },
 
   // function to search and authenticate the entered email password

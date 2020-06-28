@@ -11,7 +11,8 @@ passport.serializeUser((user, done) => {
 
 // Deauthenticate the user
 passport.deserializeUser((id, done) => {
-  User.findById({ _id: id }, "email", (err, user) => {
+  console.log("deserialized user ...");
+  User.findOne({ _id: id }, "email", (err, user) => {
     console.log("Deserializing user ", user);
     done(null, user);
   });
