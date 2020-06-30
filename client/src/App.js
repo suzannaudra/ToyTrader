@@ -10,14 +10,16 @@ import EditToy from "./components/EditToy";
 import CreateToy from "./components/CreateToy";
 import UserIdentification from "./pages/UserIdentification";
 import SavedToyList from "./pages/SaveToy";
-import LogInNav from "./components/LogInNav";
+// import LogInNav from "./components/LogInNav";
+import SignedInNav from "./components/SignedInNav";
 import CarouselSlider from "./components/CarouselSlider";
 
 function App() {
   return (
     <Router>
       <div className="container">
-        <LogInNav />
+        {/* <LogInNav /> */}
+        <SignedInNav />
         <NavigationBar />
         <CarouselSlider />
         <br />
