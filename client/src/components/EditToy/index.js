@@ -18,7 +18,7 @@ export default class EditToy extends Component {
 
     this.state = {
       userid: "",
-
+      toyname: "",
       description: "",
       condition: "",
       location: "",
@@ -168,10 +168,6 @@ export default class EditToy extends Component {
             <input type="submit" value="Edit Toy" className="btn btn-primary" />
           </div>
         </form>
-      </div>
-    );
-  }
-}       </form>
       </div>
     );
   }

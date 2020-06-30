@@ -43,7 +43,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use(flash());
 app.use(
   session({
-    secret: process.env.SESSION_SECRET, // Environment variable,
+    secret: "process.env.SESSION_SECRET", // Environment variable,
     store: new MongoStore({ mongooseConnection: connection }),
     resave: false,
     saveUninitialized: false

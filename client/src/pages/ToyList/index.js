@@ -13,6 +13,7 @@ export default class ToyList extends Component {
       toys: []
     };
   }
+
   componentDidMount() {
     axios
       .get("http://localhost:3000/toys")

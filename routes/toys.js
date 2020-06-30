@@ -2,13 +2,13 @@ const router = require("express").Router();
 let Toy = require("../models/modeltoys");
 
 router.route("/toys").get((req, res) => {
-  Toy.find({})
-
-    .then(toys => res.json(toys))
-    .catch(err => res.status(400).json("can not route to /toys " + err));
+  console.log("Toy database")
+  Toy.find({}).then(toys => {
+    console.log(toys)
+    res.json(toys)
+  }).catch(err => res.status(400).json("can not route to /toys " + err));
 });
 
-// Adds a new toy to the collection
 router.route("/toys/add").post((req, res) => {
   const userid = req.body.userid;
   const toyname = req.body.toyname;
@@ -30,20 +30,21 @@ router.route("/toys/add").post((req, res) => {
     location
   });
 
-  addedToy
-    .save()
-    .then(() => res.json("Toy added!"))
-    .catch(err => res.status(400).json("Toy not saved" + err));
+  console.log(addedToy);
+
+  addedToy.save().then(() => {
+
+    res.json("Toy added!")
+  }
+  ).catch(err => res.status(400).json("Toy not saved" + err));
 });
 
-//Finds a toy by certain toy ID
 router.route("/toy/:id").get((req, res) => {
   Toy.findById(req.params.id)
     .then(toy => res.json(toy))
     .catch(err => res.status(400).json("Error: " + err));
 });
 
-// Poster wants to remove toy listing
 router.route("/toy/:id").delete((req, res) => {
   Toy.findByIdAndDelete(req.params.id)
     .then(() => res.json("Toy deleted."))
