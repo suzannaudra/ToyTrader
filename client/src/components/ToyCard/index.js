@@ -11,11 +11,11 @@ function ToyCard(props) {
   let data = props.props;
   return (
     <Card>
-      <Card.Img variant="top" src={data.Image} className="cardImg" />
+      <Card.Img variant="top" src={data.image} className="cardImg" />
       <Card.Body>
         <Row>
           <Col>
-            <Card.Title>{data.Toyname}</Card.Title>
+            <Card.Title>{data.toyname}</Card.Title>
           </Col>
           <Col className="text-right">
             <Link
@@ -34,8 +34,8 @@ function ToyCard(props) {
 
         <Row>
           <Col>
-            <Card.Text>{data.Condition}</Card.Text>
-            <Card.Text>{data.Location}</Card.Text>
+            <Card.Text>{data.condition}</Card.Text>
+            <Card.Text>{data.location}</Card.Text>
           </Col>
           <Col className="text-right my-2">
             <IconButton

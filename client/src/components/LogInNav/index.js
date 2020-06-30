@@ -7,7 +7,11 @@ import { Container } from "react-bootstrap";
 import { Link } from "react-router-dom";
 
 class LogInNav extends Component {
+
+
+
   render() {
+
     return (
       <Container fluid>
         <Row>
@@ -19,7 +23,7 @@ class LogInNav extends Component {
               to={{
                 pathname: "/user/add",
                 state: {
-                  isResgister: true
+                  isRegister: true
                 }
               }}
               className="btn btn-warning"
@@ -32,7 +36,7 @@ class LogInNav extends Component {
               to={{
                 pathname: "/user/add",
                 state: {
-                  isResgister: false
+                  isRegister: false
                 }
               }}
               className="btn btn-warning"

@@ -1,0 +1,22 @@
+img{
+    width: 100px;
+    margin-top: 1vw;
+}
+
+#collasible-nav-dropdown {
+    color: purple;
+}
+
+.dropdown-menu.show {
+    background-color: orange;
+}
+
+.dropdown-item:hover {
+    background-color: blueviolet;
+    color: white;
+}
+
+#SignOut:hover {
+    background-color: black;
+    color: white;
+}

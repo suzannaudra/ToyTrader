@@ -45,7 +45,8 @@ router.route("/user/add").post((req, res) => {
 router.route("/user/login").post(passport.authenticate("local"), (req, res) => {
   console.log("Logged in", req.user);
   let userInfo = {
-    _id: req.user._id
+    _id: req.user._id,
+    firstName: req.user.firstName
   };
   res.send(userInfo);
 });

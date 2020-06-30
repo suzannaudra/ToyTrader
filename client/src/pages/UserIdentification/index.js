@@ -34,6 +34,7 @@ export default class Validation extends Component {
     axios
       .post("http://localhost:3000/user/login", user)
       .then(res => {
+        this.props.updatedUser({ loggedIn: true, userid: res.data._id, firstName: res.data.firstName })
         console.log(res.data);
       })
       .catch();
@@ -70,7 +71,7 @@ export default class Validation extends Component {
   render() {
     return (
       <form className="form">
-        {this.props.location.state.isResgister === true ? (
+        {this.props.location.state.isRegister === true ? (
           <LogIn
             email={this.state.email}
             password={this.state.password}
@@ -78,15 +79,15 @@ export default class Validation extends Component {
             onChange={this.handleInputChange}
           />
         ) : (
-          <SignUp
-            firstName={this.state.firstName}
-            lastName={this.state.lastName}
-            email={this.state.email}
-            password={this.state.password}
-            onClick={this.handleSignUp}
-            onChange={this.handleInputChange}
-          />
-        )}
+            <SignUp
+              firstName={this.state.firstName}
+              lastName={this.state.lastName}
+              email={this.state.email}
+              password={this.state.password}
+              onClick={this.handleSignUp}
+              onChange={this.handleInputChange}
+            />
+          )}
       </form>
     );
   }
