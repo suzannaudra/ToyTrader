@@ -1,0 +1,8 @@
+.cardImg{
+    margin-top: 0;
+}
+
+.favorite:focus {
+    outline: none;
+    
+}
