@@ -18,7 +18,7 @@ router.route("/toys/add").post((req, res) => {
   const toyname = req.body.toyname;
   const description = req.body.description;
   const date = req.body.date;
-  // condition if using number, Number(req.body.condition)
+  const image = req.body.image;
   const condition = req.body.condition;
   const location = req.body.location;
 
