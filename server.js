@@ -12,7 +12,6 @@ const flash = require("express-flash");
 const session = require("express-session");
 const passport = require("./backend/passport"); //Preconfigured Passport object
 const MongoStore = require("connect-mongo")(session);
-const multer = require("multer");
 
 // Middle-ware package for ajax
 const cors = require("cors");

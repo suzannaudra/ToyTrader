@@ -7,6 +7,7 @@ const bcrypt = require("bcrypt");
 router.route("/user").get((req, res) => {
   User.find()
     .populate("toys")
+    .populate("savedToys")
     .then(users => res.json(users))
     .catch(err => res.status(400).json("Error: " + err));
 });
@@ -51,9 +52,22 @@ router.route("/user/login").post(passport.authenticate("local"), (req, res) => {
   res.send(userInfo);
 });
 
+router.route("/user/login").get((req, res) => {
+  console.log("Retrieving user", req.user);
+  if (req.user) {
+    let userInfo = {
+      _id: req.user._id,
+      firstName: req.user.firstName
+    };
+    res.send(userInfo);
+  } else {
+    res.send(null);
+  }
+});
+
 // API route to logout the user
 router.route("/user/logout").get((req, res) => {
-  console.log(req.user);
+  console.log("Logging out user" + req.user);
   req.logout();
   res.send({ msg: "logging out" });
 });

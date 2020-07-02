@@ -3,13 +3,15 @@ import axios from "axios";
 import IdentificationForm from "../../components/IdentificationForm";
 import { LogIn } from "../../components/LogIn";
 import SignUp from "../../components/SignUp";
+import { Redirect } from "react-router-dom";
 
 export default class Validation extends Component {
   state = {
     firstName: "",
     lastName: "",
     email: "",
-    password: ""
+    password: "",
+    redirectTo: null
   };
 
   handleInputChange = event => {
@@ -34,8 +36,13 @@ export default class Validation extends Component {
     axios
       .post("http://localhost:3000/user/login", user)
       .then(res => {
-        this.props.updatedUser({ loggedIn: true, userid: res.data._id, firstName: res.data.firstName })
+        this.props.updatedUser({
+          loggedIn: true,
+          userid: res.data._id,
+          firstName: res.data.firstName
+        });
         console.log(res.data);
+        this.setState({ redirectTo: "/" });
       })
       .catch();
 
@@ -59,6 +66,7 @@ export default class Validation extends Component {
     axios
       .post("http://localhost:3000/user/add", user)
       .then(res => console.log(res.data));
+    this.setState({ redirectTo: "/" });
 
     this.setState({
       firstName: "",
@@ -79,15 +87,15 @@ export default class Validation extends Component {
             onChange={this.handleInputChange}
           />
         ) : (
-            <SignUp
-              firstName={this.state.firstName}
-              lastName={this.state.lastName}
-              email={this.state.email}
-              password={this.state.password}
-              onClick={this.handleSignUp}
-              onChange={this.handleInputChange}
-            />
-          )}
+          <SignUp
+            firstName={this.state.firstName}
+            lastName={this.state.lastName}
+            email={this.state.email}
+            password={this.state.password}
+            onClick={this.handleSignUp}
+            onChange={this.handleInputChange}
+          />
+        )}
       </form>
     );
   }
