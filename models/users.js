@@ -31,10 +31,16 @@ const userSchema = new Schema(
   },
   {
     timestamps: true,
+    savedtoys: [
+      {
+        type: Schema.Types.ObjectId,
+        ref: "savedToy"
+      }
+    ],
     toys: [
       {
         type: Schema.Types.ObjectId,
-        ref: "toy"
+        ref: "Toy"
       }
     ]
   }

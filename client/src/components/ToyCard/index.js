@@ -9,6 +9,7 @@ import { IconButton } from "@material-ui/core";
 
 function ToyCard(props) {
   let data = props.props;
+  console.log(data);
   return (
     <Card>
       <Card.Img variant="top" src={data.image} className="cardImg" />
@@ -20,7 +21,7 @@ function ToyCard(props) {
           <Col className="text-right">
             <Link
               to={{
-                pathname: "../../pages/Product",
+                pathname: "../../pages/Toy",
                 state: {
                   props: data
                 }
@@ -50,7 +51,7 @@ function ToyCard(props) {
       </Card.Body>
       <Card.Footer>
         <small className="text-muted">
-          Last updated {data.Date} by {data.userid}
+          Last updated {data.Date} by {data.firstName}
         </small>
       </Card.Footer>
     </Card>

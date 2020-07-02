@@ -1,42 +1,51 @@
 const router = require("express").Router();
 let Toy = require("../models/modeltoys");
+let User = require("../models/users");
 
 router.route("/toys").get((req, res) => {
-  console.log("Toy database")
-  Toy.find({}).then(toys => {
-    console.log(toys)
-    res.json(toys)
-  }).catch(err => res.status(400).json("can not route to /toys " + err));
+  console.log("Toy database");
+  Toy.find({})
+    .then(toys => {
+      console.log(toys);
+      res.json(toys);
+    })
+    .catch(err => res.status(400).json("can not route to /toys " + err));
 });
 
 router.route("/toys/add").post((req, res) => {
   const userid = req.body.userid;
+  const firstName = req.body.firstName;
   const toyname = req.body.toyname;
   const description = req.body.description;
   const date = req.body.date;
-  // condition if using number, Number(req.body.condition)
-  const condition = req.body.condition;
   const image = req.body.image;
-  //I'm not sure if this is correct for images
+  const condition = req.body.condition;
   const location = req.body.location;
 
   const addedToy = new Toy({
     userid,
+    firstName,
     toyname,
     description,
     date,
     condition,
-    image,
+    // image,
     location
   });
 
   console.log(addedToy);
 
-  addedToy.save().then(() => {
-
-    res.json("Toy added!")
-  }
-  ).catch(err => res.status(400).json("Toy not saved" + err));
+  addedToy
+    .save()
+    .then(toy => {
+      console.log(toy);
+      User.findByIdAndUpdate(req.params.id, {
+        //this is not for saved toy but for the toy that user own
+        //THis post request is working now
+        $push: { Toy: toy._id }
+      }).then(user => res.json("Toy added to User!"));
+    })
+    .catch(err => res.status(400).json("Toy not saved" + err));
 });
 
 router.route("/toy/:id").get((req, res) => {
