@@ -53,11 +53,12 @@ router.route("/user/login").post(passport.authenticate("local"), (req, res) => {
 });
 
 router.route("/user/login").get((req, res) => {
-  console.log("Retrieving user", req.user);
-  if (req.user) {
+  let user = req.session.passport.user;
+  console.log("Retrieving user", req.session.passport.user);
+  if (user) {
     let userInfo = {
-      _id: req.user._id,
-      firstName: req.user.firstName
+      _id: user._id,
+      firstName: user.firstName
     };
     res.send(userInfo);
   } else {
@@ -73,10 +74,10 @@ router.route("/user/logout").get((req, res) => {
 });
 
 //Replace id with actual userid
-router.route("/user/update/:_id").post((req, res) => {
-  User.findByIdAndUpdate(req.params.id, {
-    $push: { toys: req.body.toy_id }
-  }).then(user => res.json("Saved Favorite Toy"));
+router.route("/user/favorite/:_id").post((req, res) => {
+  User.findByIdAndUpdate(req.params.id, {}).then(user =>
+    res.json("Saved Favorite Toy")
+  );
 });
 
 module.exports = router;

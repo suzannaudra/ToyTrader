@@ -7,7 +7,7 @@ import NavigationBar from "./components/Navbar";
 import ToyList from "./pages/ToyList";
 import Toy from "./pages/Toy";
 import EditToy from "./components/EditToy";
-import CreateToy from "./components/CreateToy";
+import CreateToy from "./pages/CreateToy";
 import UserIdentification from "./pages/UserIdentification";
 import SavedToyList from "./pages/SaveToy";
 import LogInNav from "./components/LogInNav";
@@ -42,7 +42,8 @@ class App extends Component {
 
         this.setState(state => ({
           loggedIn: true,
-          userid: response.data._id
+          userid: response.data._id,
+          firstName: response.data.firstName
         }));
       } else {
         console.log("Get user: no user");
@@ -78,6 +79,7 @@ class App extends Component {
           {this.state.loggedIn ? (
             <SignedInNav
               firstName={this.state.firstName}
+              userid={this.state.userid}
               kickUser={this.kickUser}
             />
           ) : (
@@ -90,7 +92,16 @@ class App extends Component {
           <Route path="/" exact component={ToyList} />
           <Route path="/toys" exact component={ToyList} />
           <Route path="/toys/update" component={EditToy} />
-          <Route path="/toys/add" component={CreateToy} />
+          <Route
+            path="/toys/add"
+            render={props => (
+              <CreateToy
+                {...props}
+                userid={this.state.userid}
+                firstName={this.state.firstName}
+              />
+            )}
+          />
           <Route
             path="/user/add"
             render={props => (

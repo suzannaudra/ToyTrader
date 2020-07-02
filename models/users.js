@@ -40,7 +40,7 @@ const userSchema = new Schema(
     toys: [
       {
         type: Schema.Types.ObjectId,
-        ref: "toy"
+        ref: "Toy"
       }
     ]
   }

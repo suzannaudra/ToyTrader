@@ -51,7 +51,7 @@ function ToyCard(props) {
       </Card.Body>
       <Card.Footer>
         <small className="text-muted">
-          Last updated {data.Date} by {data.userid}
+          Last updated {data.Date} by {data.firstName}
         </small>
       </Card.Footer>
     </Card>
