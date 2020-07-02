@@ -12,8 +12,6 @@ export default class NavigationBar extends Component {
           <Nav className="mr-auto">
             <Nav.Link href="/toys">Toys</Nav.Link>
             <Nav.Link href="/toys/add">Add a Toy to Toy Trader</Nav.Link>
-            <Nav.Link href="/user/add">Create User</Nav.Link>
-            <Nav.Link href="/savedtoys">Saved Toys</Nav.Link>
             <Nav.Link href="/toys/update">Update Toy</Nav.Link>
           </Nav>
         </Navbar.Collapse>

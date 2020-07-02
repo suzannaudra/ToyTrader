@@ -14,6 +14,8 @@ import LogInNav from "./components/LogInNav";
 import CarouselSlider from "./components/CarouselSlider";
 import axios from "axios"
 import SignedInNav from "./components/SignedInNav";
+import SearchFunction from "./components/SearchFilter";
+import { Col, Row } from "react-bootstrap";
 
 class App extends Component {
   constructor() {
@@ -68,15 +70,26 @@ class App extends Component {
           {this.state.loggedIn ? <SignedInNav firstName={this.state.firstName} updatedUser={this.updatedUser} /> : <LogInNav updatedUser={this.updatedUser} />}
 
           <NavigationBar />
-          <CarouselSlider />
-          <br />
-          <Route path="/" exact component={ToyList} />
-          <Route path="/toys" exact component={ToyList} />
-          <Route path="/toys/update" component={EditToy} />
-          <Route path="/toys/add" component={CreateToy} />
-          <Route path="/user/add" render={(props) => <UserIdentification {...props} updatedUser={this.updateUser} />} />
-          {/* <Route path="/savedtoys" component={SavedToyList} /> */}
-          <Route path="/toy" component={Toy} />
+          <Row>
+            <Col className="centerToyBtn" xs={{ span: 12, order: 2 }} sm={{ span: 12, order: 2 }} >
+              <SearchFunction />
+            </Col>
+            <Col xs={{ span: 12, order: 1 }} sm={{ span: 12, order: 1 }} >
+              <CarouselSlider />
+            </Col>
+
+            <Col xs={{ span: 12, order: 3 }} >
+
+              <br />
+              <Route path="/" exact component={ToyList} />
+              <Route path="/toys" exact component={ToyList} />
+              <Route path="/toys/update" component={EditToy} />
+              <Route path="/toys/add" component={CreateToy} />
+              <Route path="/user/add" render={(props) => <UserIdentification {...props} updatedUser={this.updateUser} />} />
+              {/* <Route path="/savedtoys" component={SavedToyList} /> */}
+              <Route path="/toy" component={Toy} />
+            </Col>
+          </Row>
         </div>
       </Router>
     );
