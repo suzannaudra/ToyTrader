@@ -17,7 +17,7 @@ export default class ToyList extends Component {
     axios
       .get("http://localhost:3000/toys")
       .then(response => {
-        console.log(response.data);
+        // console.log(response.data);
         this.setState({ toys: response.data });
       })
       .catch(error => {

@@ -26,11 +26,8 @@ const userSchema = new Schema(
       required: true,
       unique: false,
       trim: true
-    }
-    // location:
-  },
-  {
-    timestamps: true,
+    },
+    
     savedtoys: [
       {
         type: Schema.Types.ObjectId,
@@ -45,6 +42,7 @@ const userSchema = new Schema(
     ]
   }
 );
+    
 
 //Defining methods for the user schema
 userSchema.methods = {
@@ -60,10 +58,10 @@ userSchema.methods = {
 //Defining pre-hooks for the save method
 userSchema.pre("save", function (next) {
   if (!this.hashedPassword) {
-    console.log("Models User ====No Password====");
+    // console.log("Models User ====No Password====");
     next();
   } else {
-    console.log("Models User Hash Password");
+    // console.log("Models User Hash Password");
     // When creating the User the password will initially be unhashed so we must resave the password as a hashed one
     this.hashedPassword = this.hash(this.hashedPassword);
     next();

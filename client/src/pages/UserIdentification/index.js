@@ -40,7 +40,7 @@ export default class Validation extends Component {
           userid: res.data._id,
           firstName: res.data.firstName
         });
-        console.log(res.data);
+        // console.log(res.data);
         window.location = "/"
       })
       .catch();

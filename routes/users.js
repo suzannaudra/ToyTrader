@@ -7,23 +7,24 @@ const bcrypt = require("bcrypt");
 router.route("/user").get((req, res) => {
   User.find()
     .populate("toys")
-    .populate("savedToys")
+    .populate("savedtoys")
     .then(users => res.json(users))
     .catch(err => res.status(400).json("Error: " + err));
 });
 
 // Will add a new user
 router.route("/user/add").post((req, res) => {
-  console.log("============User============");
-  console.log(req.user);
-  console.log(req.session);
+  // console.log("============User============");
+  // console.log(req.user);
+  // console.log(req.session);
 
+  const toys = [];
   const firstName = req.body.firstName;
   const lastName = req.body.lastName;
   const email = req.body.email;
   const hashedPassword = req.body.password; //Not really hashed atm, but will be hashed in the pre() for the user schema
   try {
-    const newUser = new User({ firstName, lastName, email, hashedPassword });
+    const newUser = new User({ firstName, lastName, email, hashedPassword, toys });
 
     // Saves the new user only if the email is unique/not a duplicate
     console.log(newUser);

@@ -51,13 +51,13 @@ app.use(
 app.use(passport.initialize());
 app.use(passport.session()); // will call serializeUser and deserializeUser
 
-// Console log the session object
-app.use("*", (req, res, next) => {
-  console.log("============User============");
-  console.log(req.user);
-  console.log("req.session ", req.session);
-  next();
-});
+// // Console log the session object
+// app.use("*", (req, res, next) => {
+//   console.log("============User============");
+//   console.log(req.user);
+//   console.log("req.session ", req.session);
+//   next();
+// });
 
 // Setting up the Routing folder
 const routes = require("./routes");

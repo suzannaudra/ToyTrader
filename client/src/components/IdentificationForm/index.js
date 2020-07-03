@@ -2,7 +2,7 @@ import React from "react";
 import "./style.css";
 
 export function IdentificationForm(props) {
-  console.log(props);
+  // console.log(props);
   return (
     <>
       {/* {!props.isRegister && (

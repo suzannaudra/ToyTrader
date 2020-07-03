@@ -9,7 +9,7 @@ import { IconButton } from "@material-ui/core";
 
 function ToyCard(props) {
   let data = props.props;
-  console.log(data);
+  // console.log(data);
   return (
     <Card>
       <Card.Img variant="top" src={data.image} className="cardImg" />

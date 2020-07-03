@@ -88,7 +88,7 @@ export default class EditToy extends Component {
       Date: this.state.Date
     };
 
-    console.log(toy);
+    // console.log(toy);
 
     axios
       .post("http://localhost:3000/toys" + this.props.match.params.id, toy)

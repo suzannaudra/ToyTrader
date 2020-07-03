@@ -65,8 +65,8 @@ export default class UserListingPage extends Component {
     e.preventDefault();
 
     const toy = {
-      userid: userid,
-      firstName: firstName,
+     userid: userid,
+     firstName: firstName,
       toyname: this.state.toyname,
       description: this.state.description,
       condition: this.state.condition,
@@ -78,7 +78,7 @@ export default class UserListingPage extends Component {
     console.log(toy);
 
     axios.post("/toys/add", toy).then(res => {
-      console.log(res.data);
+      // console.log(res.data);
       window.location = "/";
     });
   }
