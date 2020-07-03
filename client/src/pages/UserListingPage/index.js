@@ -2,6 +2,9 @@ import React, { Component } from "react";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import axios from "axios";
+// import ToyCard from '../../components/ToyCard'
+import CardColumns from "react-bootstrap/CardColumns";
+import SavedToyCard from "../../components/SavedToyCard";
 
 export default class UserListingPage extends Component {
   constructor(props) {
@@ -16,6 +19,7 @@ export default class UserListingPage extends Component {
     this.onSubmit = this.onSubmit.bind(this);
 
     this.state = {
+      toysListing: [],
       userid: "",
       toyname: "",
       description: "",
@@ -25,6 +29,41 @@ export default class UserListingPage extends Component {
       Date: ""
     };
   }
+
+  componentWillReceiveProps(props) {
+    console.log(props.userid)
+    let url = `http://localhost:3000/listing/${props.userid}`;
+    console.log(url)
+    axios
+      .get(url)
+      .then(response => {
+        console.log(response);
+        this.setState({ userid: props.userid, toysListing: response.data.toys });
+      }).catch(err => {
+        console.log(err)
+      })
+
+
+  }
+
+  // componentDidMount() {
+  //   this.requestForAllToysOfThisUser()
+
+  // }
+
+  // requestForAllToysOfThisUser() {
+  //   console.log("this is userlistingpage " + this.state.userid)
+  //   let url = "http://localhost:3000/listing/5efea56229b94841219c1076";
+  //   console.log(url)
+  //   axios
+  //     .get(url)
+  //     .then(response => {
+  //       console.log("this is response of axios to /user " + response);
+  //       this.setState({ toysListing: response.toys });
+  //     }).catch(err => {
+  //       console.log(err)
+  //     })
+  // }
 
   onChangeToyname(e) {
     this.setState({
@@ -79,13 +118,47 @@ export default class UserListingPage extends Component {
 
     axios.post("/toys/add", toy).then(res => {
       console.log(res.data);
-      window.location = "/";
+      // window.location = "/";
     });
   }
 
+  deleteToy(id) {
+    axios
+      .delete("http://localhost:3000/toy" + id)
+      .then(res => console.log(res.data));
+
+    this.setState({
+      toysListing: this.state.toysListing.filter(el => el._id !== id)
+    });
+  }
+
+  // toyList() {
+
+  //   return this.state.toysListing.map((currenttoy, index) => {
+  //     return (
+  //       <ToyCard props={currenttoy} deleteToy={this.deleteToy} key={index} />
+  //     );
+  //   });
+  // }
+
   render() {
+    console.log(this.state.toysListing)
     return (
       <div>
+        <div>
+          <h3>TOYS</h3>
+          <CardColumns>
+            {this.state.toysListing.map((currenttoy, index) => {
+              return (
+                <SavedToyCard
+                  props={currenttoy}
+                  deleteToy={this.deleteToy}
+                  key={index}
+                />
+              );
+            })}
+          </CardColumns>
+        </div>
         <h3>Add New Toy</h3>
         <form
           onSubmit={e =>

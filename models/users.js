@@ -26,11 +26,8 @@ const userSchema = new Schema(
       required: true,
       unique: false,
       trim: true
-    }
+    },
     // location:
-  },
-  {
-    timestamps: true,
     savedtoys: [
       {
         type: Schema.Types.ObjectId,

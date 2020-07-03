@@ -34,8 +34,8 @@ function SavedToyCard(props) {
 
         <Row>
           <Col>
-            <Card.Text>{data.Condition}</Card.Text>
-            <Card.Text>{data.Location}</Card.Text>
+            <Card.Text>{data.condition}</Card.Text>
+            <Card.Text>{data.location}</Card.Text>
           </Col>
           <Col className="text-right my-2">
             <IconButton className="favorite" color="secondary">
@@ -46,7 +46,7 @@ function SavedToyCard(props) {
       </Card.Body>
       <Card.Footer>
         <small className="text-muted">
-          Last updated {data.Date} by {data.userid}
+          Last updated {data.Date} by {data.firstName}
         </small>
       </Card.Footer>
     </Card>

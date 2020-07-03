@@ -39,14 +39,32 @@ router.route("/toys/add").post((req, res) => {
     .save()
     .then(toy => {
       console.log(toy);
-      User.findByIdAndUpdate(req.params.id, {
+      User.findByIdAndUpdate(req.body.userid).then((user) => {
         //this is not for saved toy but for the toy that user own
         //THis post request is working now
-        $push: { Toy: toy._id }
-      }).then(user => res.json("Toy added to User!"));
-    })
-    .catch(err => res.status(400).json("Toy not saved" + err));
+
+        user.toys.push(toy._id);
+
+        user.save(err => {
+          console.log("Printing error" + err);
+        });
+
+      }).catch(err => res.status(400).json("Toy not saved" + err));
+    });
 });
+
+router.route("/savetoy/add").post((req, res) => {
+  const userid = req.body.userid;
+  const savedtoyid = req.body.toyid;
+  User.findByIdAndUpdate(userid).then((user) => {
+    //this is for the favorite toy routes
+    // Favorite
+    user.savedtoys.push(toyid);
+    user.save(err => {
+      console.log("Printing error" + err);
+    });
+  })
+})
 
 router.route("/toy/:id").get((req, res) => {
   Toy.findById(req.params.id)
