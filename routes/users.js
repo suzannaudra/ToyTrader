@@ -7,6 +7,15 @@ const bcrypt = require("bcrypt");
 router.route("/user").get((req, res) => {
   User.find()
     .populate("toys")
+    .populate("savedToys")
+    .then(users => res.json(users))
+    .catch(err => res.status(400).json("Error: " + err));
+});
+
+router.route("/listing/:userid").get((req, res) => {
+  User.findById(req.params.userid)
+    .populate("toys")
+    .populate("savedToys")
     .then(users => res.json(users))
     .catch(err => res.status(400).json("Error: " + err));
 });
@@ -51,18 +60,32 @@ router.route("/user/login").post(passport.authenticate("local"), (req, res) => {
   res.send(userInfo);
 });
 
+router.route("/user/login").get((req, res) => {
+  let user = req.session.passport.user;
+  console.log("Retrieving user", req.session.passport.user);
+  if (user) {
+    let userInfo = {
+      _id: user._id,
+      firstName: user.firstName
+    };
+    res.send(userInfo);
+  } else {
+    res.send(null);
+  }
+});
+
 // API route to logout the user
 router.route("/user/logout").get((req, res) => {
-  console.log(req.user);
+  console.log("Logging out user" + req.user);
   req.logout();
   res.send({ msg: "logging out" });
 });
 
 //Replace id with actual userid
-router.route("/user/update/:_id").post((req, res) => {
-  User.findByIdAndUpdate(req.params.id, {
-    $push: { toys: req.body.toy_id }
-  }).then(user => res.json("Saved Favorite Toy"));
+router.route("/user/favorite/:_id").post((req, res) => {
+  User.findByIdAndUpdate(req.params.id, {}).then(user =>
+    res.json("Saved Favorite Toy")
+  );
 });
 
 module.exports = router;

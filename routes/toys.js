@@ -1,43 +1,70 @@
 const router = require("express").Router();
 let Toy = require("../models/modeltoys");
+let User = require("../models/users");
 
 router.route("/toys").get((req, res) => {
-  console.log("Toy database")
-  Toy.find({}).then(toys => {
-    console.log(toys)
-    res.json(toys)
-  }).catch(err => res.status(400).json("can not route to /toys " + err));
+  console.log("Toy database");
+  Toy.find({})
+    .then(toys => {
+      console.log(toys);
+      res.json(toys);
+    })
+    .catch(err => res.status(400).json("can not route to /toys " + err));
 });
 
 router.route("/toys/add").post((req, res) => {
   const userid = req.body.userid;
+  const firstName = req.body.firstName;
   const toyname = req.body.toyname;
   const description = req.body.description;
   const date = req.body.date;
-  // condition if using number, Number(req.body.condition)
-  const condition = req.body.condition;
   const image = req.body.image;
-  //I'm not sure if this is correct for images
+  const condition = req.body.condition;
   const location = req.body.location;
 
   const addedToy = new Toy({
     userid,
+    firstName,
     toyname,
     description,
     date,
     condition,
-    image,
+    // image,
     location
   });
 
   console.log(addedToy);
 
-  addedToy.save().then(() => {
+  addedToy
+    .save()
+    .then(toy => {
+      console.log(toy);
+      User.findByIdAndUpdate(req.body.userid).then((user) => {
+        //this is not for saved toy but for the toy that user own
+        //THis post request is working now
 
-    res.json("Toy added!")
-  }
-  ).catch(err => res.status(400).json("Toy not saved" + err));
+        user.toys.push(toy._id);
+
+        user.save(err => {
+          console.log("Printing error" + err);
+        });
+
+      }).catch(err => res.status(400).json("Toy not saved" + err));
+    });
 });
+
+router.route("/savetoy/add").post((req, res) => {
+  const userid = req.body.userid;
+  const savedtoyid = req.body.toyid;
+  User.findByIdAndUpdate(userid).then((user) => {
+    //this is for the favorite toy routes
+    // Favorite
+    user.savedtoys.push(toyid);
+    user.save(err => {
+      console.log("Printing error" + err);
+    });
+  })
+})
 
 router.route("/toy/:id").get((req, res) => {
   Toy.findById(req.params.id)
