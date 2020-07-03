@@ -3,7 +3,6 @@ import axios from "axios";
 import IdentificationForm from "../../components/IdentificationForm";
 import { LogIn } from "../../components/LogIn";
 import SignUp from "../../components/SignUp";
-import { Redirect } from "react-router-dom";
 
 export default class Validation extends Component {
   state = {
@@ -11,7 +10,7 @@ export default class Validation extends Component {
     lastName: "",
     email: "",
     password: "",
-    redirectTo: null
+
   };
 
   handleInputChange = event => {
@@ -42,7 +41,7 @@ export default class Validation extends Component {
           firstName: res.data.firstName
         });
         console.log(res.data);
-        this.setState({ redirectTo: "/" });
+        window.location = "/"
       })
       .catch();
 
@@ -87,15 +86,15 @@ export default class Validation extends Component {
             onChange={this.handleInputChange}
           />
         ) : (
-          <SignUp
-            firstName={this.state.firstName}
-            lastName={this.state.lastName}
-            email={this.state.email}
-            password={this.state.password}
-            onClick={this.handleSignUp}
-            onChange={this.handleInputChange}
-          />
-        )}
+            <SignUp
+              firstName={this.state.firstName}
+              lastName={this.state.lastName}
+              email={this.state.email}
+              password={this.state.password}
+              onClick={this.handleSignUp}
+              onChange={this.handleInputChange}
+            />
+          )}
       </form>
     );
   }

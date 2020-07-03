@@ -7,7 +7,7 @@ import NavigationBar from "./components/Navbar";
 import ToyList from "./pages/ToyList";
 import Toy from "./pages/Toy";
 import EditToy from "./components/EditToy";
-import CreateToy from "./pages/CreateToy";
+import UserListingPage from "./pages/UserListingPage";
 import UserIdentification from "./pages/UserIdentification";
 import SavedToyList from "./pages/SaveToy";
 import LogInNav from "./components/LogInNav";
@@ -83,8 +83,8 @@ class App extends Component {
               kickUser={this.kickUser}
             />
           ) : (
-            <LogInNav updatedUser={this.updatedUser} />
-          )}
+              <LogInNav updatedUser={this.updatedUser} />
+            )}
 
           <NavigationBar />
           <CarouselSlider />
@@ -95,7 +95,7 @@ class App extends Component {
           <Route
             path="/toys/add"
             render={props => (
-              <CreateToy
+              <UserListingPage
                 {...props}
                 userid={this.state.userid}
                 firstName={this.state.firstName}

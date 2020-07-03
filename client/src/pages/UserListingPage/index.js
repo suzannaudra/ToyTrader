@@ -2,9 +2,8 @@ import React, { Component } from "react";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import axios from "axios";
-import { MongooseDocument } from "mongoose";
 
-export default class CreateToy extends Component {
+export default class UserListingPage extends Component {
   constructor(props) {
     super(props);
 

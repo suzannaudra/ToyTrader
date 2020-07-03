@@ -3,7 +3,7 @@ import React from "react";
 import Card from "react-bootstrap/Card";
 import "./style.css";
 import FavoriteIcon from "@material-ui/icons/Favorite";
-import { Row, Col, Button } from "react-bootstrap";
+import { Row, Col } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import { IconButton } from "@material-ui/core";
 
