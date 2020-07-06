@@ -20,7 +20,7 @@ function SavedToyCard(props) {
           <Col className="text-right">
             <Link
               to={{
-                pathname: "../../pages/Toy",
+                pathname: "/toy",
                 state: {
                   props: data
                 }

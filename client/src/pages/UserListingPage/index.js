@@ -156,7 +156,7 @@ export default class UserListingPage extends Component {
             {this.state.toysListing.map((currenttoy, index) => {
               return (
                 <SavedToyCard
-                  props={currenttoy}
+                  currenttoy={currenttoy}
                   deleteToy={this.deleteToy}
                   key={index}
                 />
