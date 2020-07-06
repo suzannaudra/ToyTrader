@@ -2,11 +2,14 @@
   .description-text {
     padding: 10px 0px;
   }
+
 }
 
 .card-body {
-  background-color: #ffc107;
+  background-image: linear-gradient(rgb(244, 245, 168), rgb(247, 216, 149));
   border-color: #ffc107;
+  min-height: 200px;
+
 }
 
 .material-icons {
@@ -28,4 +31,36 @@
 .centerrow {
   display: flex;
   justify-content: center;
+}
+
+.bigImage{
+  margin-top:0;
+}
+
+.card-header{
+  background-color: #FFC461;
+  color: #BC5715;
+  /* line-height: 50px; */
+  font-size: 25px;
+  font-weight: 700;
+}
+
+.toyPageDescription{
+  font-size: 30px;
+  font-weight: 700;
+}
+
+.iconDiv{
+  background-color: #FDEA8E;
+  border-radius: 10px;
+  text-align: center;
+  /* padding: 20px; */
+  margin: 5px;
+  padding: 10px;
+
+}
+
+p{
+  /* width: fit-content; */
+  margin: 0;
 }

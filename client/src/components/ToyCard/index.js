@@ -7,6 +7,12 @@ import { Row, Col } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import { IconButton } from "@material-ui/core";
 import axios from "axios";
+import ShowMoreText from 'react-show-more-text';
+
+
+function executeOnClick(isExpanded) {
+  console.log(isExpanded);
+}
 
 function savedtoyList(currenttoy, userid) {
   const data = {
@@ -21,14 +27,25 @@ function ToyCard(props) {
   let data = props.currenttoy;
   console.log(data);
   return (
+
     <Card>
       <Card.Img variant="top" src={data.image} className="cardImg" />
-      <Card.Body>
+      <Card.Body className="cardBody">
         <Row>
           <Col>
-            <Card.Title>{data.toyname}</Card.Title>
+            <Card.Title className="cardTitle">
+              <ShowMoreText className="showMore" lines={2}
+                more='Show more'
+                less='Show less'
+                anchorClass=''
+                onClick={() => executeOnClick()}
+                expanded={false}
+                width={250}>
+                {data.toyname}
+              </ShowMoreText>
+            </Card.Title>
           </Col>
-          <Col className="text-right">
+          <Col xs={3} className="text-right pl-0">
             <Link
               to={{
                 pathname: "/toy",
@@ -45,10 +62,10 @@ function ToyCard(props) {
 
         <Row>
           <Col>
-            <Card.Text>{data.condition}</Card.Text>
+            <Card.Text className="toyCondition">{data.condition}</Card.Text>
             <Card.Text>{data.location}</Card.Text>
           </Col>
-          <Col className="text-right my-2">
+          <Col xs={3} className="text-right my-2">
             <IconButton
               className="favorite"
               color="secondary"
@@ -65,6 +82,8 @@ function ToyCard(props) {
         </small>
       </Card.Footer>
     </Card>
+
+
   );
 }
 export default ToyCard;

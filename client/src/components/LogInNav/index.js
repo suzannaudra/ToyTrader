@@ -18,7 +18,7 @@ class LogInNav extends Component {
           <Col>
             <img src={logo} alt="Fun Ex Change Logo" />
           </Col>
-          <Col xs lg="1" className="px-1 pt-5 text-right">
+          <Col xs lg={2} className="px-1 pt-5 text-right">
             <Link
               to={{
                 pathname: "/user/add",
@@ -31,7 +31,7 @@ class LogInNav extends Component {
               Login
             </Link>
           </Col>
-          <Col xs lg="1" className="px-0 pt-5">
+          <Col xs lg={2} className="px-0 pt-5">
             <Link
               to={{
                 pathname: "/user/add",

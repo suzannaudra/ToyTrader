@@ -66,6 +66,7 @@ class App extends Component {
           userid: null,
           firstName: null
         });
+        window.location = "/"
         console.log("You have logged out");
       })
       .catch(error => console.log("Loggout error"));
