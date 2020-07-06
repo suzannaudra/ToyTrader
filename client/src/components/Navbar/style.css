@@ -4,3 +4,31 @@
     background-color: blanchedalmond;
     text-align: center;
 }
+
+.form-inline {
+    margin-top: 0px;
+    padding: 0px;
+}
+
+.Searchbar {
+    margin-top: 0px;
+    margin-bottom: 0px;
+    margin-right: 5px;
+    background-color: darkslategray;
+    color: white;
+}
+.Searchbar::placeholder {
+    color: white;
+    opacity: 0.5;
+}
+.Searchbar:focus {
+    background-color: darkslategray;
+    color:white;
+
+}
+
+.btn.btn-outline-info {
+    width: auto;
+    background-color: orange;
+    color: purple;
+}

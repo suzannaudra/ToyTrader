@@ -7,7 +7,6 @@ export default class ToyList extends Component {
   constructor(props) {
     super(props);
 
-    this.savedtoyList = this.savedtoyList.bind(this);
     this.state = {
       toys: []
     };
@@ -34,13 +33,6 @@ export default class ToyList extends Component {
     });
   }
 
-  savedtoyList(currenttoy) {
-    axios
-      .post("http://localhost:3000/savedToys", currenttoy)
-
-      .then(res => console.log(res.data));
-  }
-
   render() {
     return (
       <div>
@@ -49,8 +41,9 @@ export default class ToyList extends Component {
           {this.state.toys.map((currenttoy, index) => {
             return (
               <ToyCard
-                props={currenttoy}
-                savedtoyList={this.savedtoyList}
+                currenttoy={currenttoy}
+                userid={this.props.userid}
+                onClick={this.savedtoyList}
                 key={index}
               />
             );

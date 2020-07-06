@@ -29,7 +29,7 @@ router.route("/toys/add").post((req, res) => {
     description,
     date,
     condition,
-    // image,
+    image,
     location
   });
 
@@ -53,16 +53,31 @@ router.route("/toys/add").post((req, res) => {
     });
 });
 
-router.route("/savetoy/add").post((req, res) => {
+router.route("/savedToys/add").post((req, res) => {
   const userid = req.body.userid;
   const savedtoyid = req.body.toyid;
-  User.findByIdAndUpdate(userid).then((user) => {
+
+  User.findById(userid).then((user) => {
     //this is for the favorite toy routes
     // Favorite
-    user.savedtoys.push(toyid);
+
+    user.savedtoys.push(savedtoyid);
     user.save(err => {
-      console.log("Printing error" + err);
+      if (err) {
+        console.log("Printing error " + err);
+      }
     });
+  })
+})
+
+router.route("/savedtoys/:id").get((req, res) => {
+  const userid = req.params.id;
+  User.findById(userid).then((user) => {
+    console.log(user.savedtoys);
+    res.send(user.savedtoys)
+  }).catch(err => {
+    console.log(err);
+    res.status(400).json("User not found" + err);
   })
 })
 
