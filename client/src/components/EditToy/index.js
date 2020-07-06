@@ -41,36 +41,42 @@ export default class EditToy extends Component {
   }
 
   onChangeUsername(e) {
+    e.persist();
     this.setState({
       userid: e.target.value
     });
   }
 
   onChangedescription(e) {
+    e.persist();
     this.setState({
       description: e.target.value
     });
   }
 
   onChangecondition(e) {
+    e.persist();
     this.setState({
       condition: e.target.value
     });
   }
 
   onChangelocation(e) {
+    e.persist();
     this.setState({
       location: e.target.value
     });
   }
 
   onChangedate(Date) {
+
     this.setState({
       Date: Date
     });
   }
 
   onChangeimage(e) {
+    e.persist();
     this.setState({
       image: e.target.value
     });

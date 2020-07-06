@@ -6,9 +6,19 @@ import FavoriteIcon from "@material-ui/icons/Favorite";
 import { Row, Col } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import { IconButton } from "@material-ui/core";
+import axios from "axios";
+
+function savedtoyList(currenttoy, userid) {
+  const data = {
+    userid: userid,
+    toyid: currenttoy._id
+  }
+  axios
+    .post("http://localhost:3000/savedToys/add", data).then(res => console.log(res.data));
+}
 
 function ToyCard(props) {
-  let data = props.props;
+  let data = props.currenttoy;
   console.log(data);
   return (
     <Card>
@@ -21,7 +31,7 @@ function ToyCard(props) {
           <Col className="text-right">
             <Link
               to={{
-                pathname: "../../pages/Toy",
+                pathname: "/toy",
                 state: {
                   props: data
                 }
@@ -42,7 +52,7 @@ function ToyCard(props) {
             <IconButton
               className="favorite"
               color="secondary"
-              savedtoyList={props.savedtoyList}
+              onClick={() => savedtoyList(props.currenttoy, props.userid)}
             >
               <FavoriteIcon style={{ color: "green" }} />
             </IconButton>
