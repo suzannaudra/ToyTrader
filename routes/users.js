@@ -12,6 +12,12 @@ router.route("/user").get((req, res) => {
     .catch(err => res.status(400).json("Error: " + err));
 });
 
+router.route("/email/:userid").get((req, res) => {
+  User.findById(req.params.userid)
+    .then(users => res.json(users))
+    .catch(err => res.status(400).json("Error: " + err));
+});
+
 router.route("/listing/:userid").get((req, res) => {
   User.findById(req.params.userid)
     .populate("toys")
