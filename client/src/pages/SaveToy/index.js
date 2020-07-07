@@ -1,10 +1,8 @@
 import React, { Component } from "react";
 import axios from "axios";
-import { Container, Row, Col, Card } from "react-bootstrap";
-import Image from "react-bootstrap/Image";
-import logo from "../../components/Image/fun-logo.png";
+import { Col } from "react-bootstrap";
 import SavedToyCard from "../../components/SavedToyCard"
-import CardColumns from "react-bootstrap/CardColumns";
+import CardDeck from "react-bootstrap/CardDeck";
 
 export default class savedToy extends Component {
     constructor(props) {
@@ -54,17 +52,19 @@ export default class savedToy extends Component {
         return (
             <div>
                 <h3>TOYS</h3>
-                <CardColumns>
+                <CardDeck>
                     {this.state.toys.map((currenttoy, index) => {
                         return (
-                            <SavedToyCard
-                                currenttoy={currenttoy.data}
-                                key={index}
-                            />
+                            <Col xs={12} sm={6} lg={4} className="px-0 pb-3">
+                                <SavedToyCard
+                                    currenttoy={currenttoy.data}
+                                    key={index}
+                                />
+                            </Col>
                         )
                     })}
-                </CardColumns>
-            </div>
+                </CardDeck>
+            </div >
         );
     }
 }

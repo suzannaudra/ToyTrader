@@ -3,8 +3,9 @@ import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import axios from "axios";
 // import ToyCard from '../../components/ToyCard'
-import CardColumns from "react-bootstrap/CardColumns";
+import CardDeck from "react-bootstrap/CardDeck";
 import SavedToyCard from "../../components/SavedToyCard";
+import { Col } from "react-bootstrap";
 
 export default class UserListingPage extends Component {
   constructor(props) {
@@ -45,25 +46,6 @@ export default class UserListingPage extends Component {
 
 
   }
-
-  // componentDidMount() {
-  //   this.requestForAllToysOfThisUser()
-
-  // }
-
-  // requestForAllToysOfThisUser() {
-  //   console.log("this is userlistingpage " + this.state.userid)
-  //   let url = "http://localhost:3000/listing/5efea56229b94841219c1076";
-  //   console.log(url)
-  //   axios
-  //     .get(url)
-  //     .then(response => {
-  //       console.log("this is response of axios to /user " + response);
-  //       this.setState({ toysListing: response.toys });
-  //     }).catch(err => {
-  //       console.log(err)
-  //     })
-  // }
 
   onChangeToyname(e) {
     e.persist();
@@ -123,8 +105,18 @@ export default class UserListingPage extends Component {
 
     axios.post("/toys/add", toy).then(res => {
       console.log(res.data);
-      // window.location = "/";
+
     });
+
+    this.setState({
+      toyname: "",
+      description: "",
+      condition: "",
+      location: "",
+      image: "",
+      Date: ""
+    })
+
   }
 
   deleteToy(id) {
@@ -137,32 +129,25 @@ export default class UserListingPage extends Component {
     });
   }
 
-  // toyList() {
-
-  //   return this.state.toysListing.map((currenttoy, index) => {
-  //     return (
-  //       <ToyCard props={currenttoy} deleteToy={this.deleteToy} key={index} />
-  //     );
-  //   });
-  // }
-
   render() {
     console.log(this.state.toysListing)
     return (
       <div>
         <div>
           <h3>TOYS</h3>
-          <CardColumns>
+          <CardDeck>
             {this.state.toysListing.map((currenttoy, index) => {
               return (
-                <SavedToyCard
-                  props={currenttoy}
-                  deleteToy={this.deleteToy}
-                  key={index}
-                />
+                <Col xs={12} sm={6} lg={4} className="px-0 pb-3">
+                  <SavedToyCard
+                    currenttoy={currenttoy}
+                    deleteToy={this.deleteToy}
+                    key={index}
+                  />
+                </Col>
               );
             })}
-          </CardColumns>
+          </CardDeck>
         </div>
         <h3>Add New Toy</h3>
         <form
