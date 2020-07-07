@@ -25,3 +25,4 @@ app.get("/find/:query", function (req, res) {
     })
     .catch(err => res.status(500).json({ error: err }));
 });
+module.exports = router;

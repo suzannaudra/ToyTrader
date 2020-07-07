@@ -8,7 +8,7 @@ import { Link } from "react-router-dom";
 import { IconButton } from "@material-ui/core";
 
 function SavedToyCard(props) {
-  let data = props.props;
+  let data = props.currenttoy;
   return (
     <Card>
       <Card.Img variant="top" src={data.image} className="cardImg" />

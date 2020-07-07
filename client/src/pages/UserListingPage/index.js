@@ -66,23 +66,27 @@ export default class UserListingPage extends Component {
   // }
 
   onChangeToyname(e) {
+    e.persist();
     this.setState({
       toyname: e.target.value
     });
   }
   onChangedescription(e) {
+    e.persist();
     this.setState({
       description: e.target.value
     });
   }
 
   onChangecondition(e) {
+    e.persist();
     this.setState({
       condition: e.target.value
     });
   }
 
   onChangelocation(e) {
+    e.persist();
     this.setState({
       location: e.target.value
     });
@@ -95,6 +99,7 @@ export default class UserListingPage extends Component {
   }
 
   onChangeimage(e) {
+    e.persist();
     this.setState({
       image: e.target.value
     });
@@ -208,8 +213,8 @@ export default class UserListingPage extends Component {
           <div className="form-group">
             <label> Image URL: </label>
             <input
-              type="image"
-              alt="imagetoy"
+              type="text"
+              alt="Image URL"
               required
               className="form-control"
               //NOT SURE IF THIS IMAGE INPUT IS CORRECT

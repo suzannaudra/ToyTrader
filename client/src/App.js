@@ -27,6 +27,7 @@ class App extends Component {
 
   componentDidMount = () => {
     this.getUser();
+    //Fetch all toys here t set state and show when a user first loads
   };
 
   updatedUser = userObject => {
@@ -86,11 +87,16 @@ class App extends Component {
               <LogInNav updatedUser={this.updatedUser} />
             )}
 
-          <NavigationBar />
+          <NavigationBar  onChange={ event => this.setState({ query: event.target.value }) }
+              onKeyPress={ event => {
+                if ('Enter' === event.key) {
+                  this.search();
+                }
+              }} />
           <CarouselSlider />
           <br />
-          <Route path="/" exact component={ToyList} />
-          <Route path="/toys" exact component={ToyList} />
+          <Route path="/" exact render={props => (<ToyList {...props} userid={this.state.userid} />)} />
+          <Route path="/toys" exact render={props => (<ToyList {...props} userid={this.state.userid} />)} />
           <Route path="/toys/update" component={EditToy} />
           <Route
             path="/toys/add"
@@ -108,7 +114,8 @@ class App extends Component {
               <UserIdentification {...props} updatedUser={this.updatedUser} />
             )}
           />
-          {/* <Route path="/savedtoys" component={SavedToyList} /> */}
+          <Route path="/savedtoys" render={props => (<SavedToyList {...props} userid={this.state.userid} />)} />
+          {/* <Route path="/toy" render={props => (<Toy {...props} userid={this.state.userid} />)} /> */}
           <Route path="/toy" component={Toy} />
         </div>
       </Router>

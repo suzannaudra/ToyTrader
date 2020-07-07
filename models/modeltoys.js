@@ -10,7 +10,7 @@ const toysSchema = new Schema(
     description: { type: String, required: true },
     //Should condition be a String or Number ? Have them rate toy condition 1-10.
     condition: { type: String, required: true },
-    // image: { data: Buffer, contentType: String },
+    image: { type: String },
     date: { type: Date, default: Date.now },
     location: { type: String, required: true }
   },

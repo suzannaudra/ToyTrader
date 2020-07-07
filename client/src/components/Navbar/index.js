@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Navbar, Nav } from "react-bootstrap";
+import { Navbar, Nav, NavDropdown, Form, FormControl, Button } from "react-bootstrap";
 import "./style.css";
 
 export default class NavigationBar extends Component {
@@ -10,12 +10,20 @@ export default class NavigationBar extends Component {
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="mr-auto">
-            <Nav.Link href="/toys">Toys</Nav.Link>
-            <Nav.Link href="/toys/add">Add a Toy to Toy Trader</Nav.Link>
-            <Nav.Link href="/user/add">Create User</Nav.Link>
-            <Nav.Link href="/savedtoys">Saved Toys</Nav.Link>
-            <Nav.Link href="/toys/update">Update Toy</Nav.Link>
+            <Nav.Link href="/toys">HOME</Nav.Link>
+            <Nav.Link href="">ABOUT US</Nav.Link>
+            <NavDropdown title="CONTACT " id="basic-nav-dropdown">
+              <NavDropdown.Item href="https://github.com/thuynguyen-nht">Thuy Nguyen</NavDropdown.Item>
+              <NavDropdown.Item href="https://github.com/ardealto">Angel de la Torre</NavDropdown.Item>
+              <NavDropdown.Item href="https://github.com/suzannaudra">Suzann Kowalski</NavDropdown.Item>
+              <NavDropdown.Item href="https://github.com/Bangdrum">Ryan Shepard</NavDropdown.Item>
+            </NavDropdown>
           </Nav>
+          <Form inline>
+            <FormControl type="text" placeholder="Find a toy!" className="SearchInput text-center" />
+            <Button variant="outline-info"
+            >Search</Button>
+          </Form>
         </Navbar.Collapse>
       </Navbar>
     );
