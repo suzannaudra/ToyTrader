@@ -3,10 +3,10 @@ let Toy = require("../models/modeltoys");
 let User = require("../models/users");
 
 router.route("/toys").get((req, res) => {
-  console.log("Toy database");
+  // console.log("Toy database");
   Toy.find({})
     .then(toys => {
-      console.log(toys);
+      // console.log(toys);
       res.json(toys);
     })
     .catch(err => res.status(400).json("can not route to /toys " + err));
@@ -56,11 +56,11 @@ router.route("/toys/add").post((req, res) => {
 router.route("/savedToys/add").post((req, res) => {
   const userid = req.body.userid;
   const savedtoyid = req.body.toyid;
-
+  console.log(userid)
   User.findById(userid).then((user) => {
     //this is for the favorite toy routes
     // Favorite
-
+    // console.log(user)
     user.savedtoys.push(savedtoyid);
     user.save(err => {
       if (err) {

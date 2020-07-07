@@ -7,10 +7,27 @@ import ShareIcon from '@material-ui/icons/Share';
 // import MoreHorizIcon from '@material-ui/icons/MoreHoriz';
 import ContactMailIcon from '@material-ui/icons/ContactMail';
 // import CommentBox from "../../components/CommentSection/index";
+import axios from "axios";
 
 export default class Toy extends Component {
 
+    savedtoyList(currenttoy, userid) {
+        console.log("Now saving toy")
+        console.log(userid)
+        const data = {
+            userid: userid,
+            toyid: currenttoy
+        }
+        axios
+            .post("http://localhost:3000/savedToys/add", data).then(res => console.log(res.data));
+    }
+
+
     render() {
+        // console.log(this.props.location.state.props)
+        // console.log("Listing toycard props")
+        console.log("getting location userid")
+        console.log(this.props.location.state.userid)
         return (
             <div>
                 <h3>{this.props.location.state.props.toyname}</h3>
@@ -41,8 +58,9 @@ export default class Toy extends Component {
                                             <IconButton
                                                 className="favorite"
                                                 color="secondary"
-
-                                            // savedtoyList={props.savedtoyList}
+                                                onClick={() => this.savedtoyList(this.props.location.state.props._id, this.props.location.state.userid)}
+                                            // toyid={this.props.location.state.props._id}
+                                            // userid={this.props.location.state.props.userid}
                                             >
                                                 <FavoriteIcon fontSize="large" className="favorite material-icons" />
                                             </IconButton>

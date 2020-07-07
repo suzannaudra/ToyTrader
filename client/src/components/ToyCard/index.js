@@ -50,7 +50,8 @@ function ToyCard(props) {
               to={{
                 pathname: "/toy",
                 state: {
-                  props: data
+                  props: props.currenttoy,
+                  userid: props.userid
                 }
               }}
               className="btn btn-warning"
