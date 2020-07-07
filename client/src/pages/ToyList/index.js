@@ -7,22 +7,32 @@ import { Col } from "react-bootstrap";
 export default class ToyList extends Component {
   constructor(props) {
     super(props);
+
+    this.state = {
+      toys: []
+    };
   }
 
-  // toyList() {
-  //   return this.state.toys.map((currenttoy, index) => {
-  //     return (
-  //       <ToyCard props={currenttoy} deleteToy={this.deleteToy} key={index} />
-  //     );
-  //   });
-  // }
+  componentDidMount() {
+    axios
+      .get("http://localhost:3000/toys")
+      .then(response => {
+        console.log(response.data);
+        this.setState({ toys: response.data });
+      })
+      .catch(error => {
+        console.log(error);
+      });
 
-  savedtoyList() {
-    //TODO: layer
-    console.log("I was clicked");
   }
 
-
+  toyList() {
+    return this.state.toys.map((currenttoy, index) => {
+      return (
+        <ToyCard props={currenttoy} deleteToy={this.deleteToy} key={index} />
+      );
+    });
+  }
 
 
 
