@@ -3,7 +3,7 @@ let Toy = require("../models/modeltoys");
 let User = require("../models/users");
 
 router.route("/toys").get((req, res) => {
-  console.log("Toy database");
+  // console.log("Toy database");
   Toy.find({})
     .then(toys => {
       console.log(toys);
@@ -18,7 +18,7 @@ router.route("/toys/add").post((req, res) => {
   const toyname = req.body.toyname;
   const description = req.body.description;
   const date = req.body.date;
-  const image = req.body.image;
+  //const image = req.body.image;
   const condition = req.body.condition;
   const location = req.body.location;
 
@@ -35,11 +35,10 @@ router.route("/toys/add").post((req, res) => {
 
   console.log(addedToy);
 
-  addedToy
-    .save()
-    .then(toy => {
-      console.log(toy);
-      User.findByIdAndUpdate(req.body.userid).then((user) => {
+  addedToy.save().then(toy => {
+    console.log(toy);
+    User.findByIdAndUpdate(req.body.userid)
+      .then(user => {
         //this is not for saved toy but for the toy that user own
         //THis post request is working now
 
@@ -48,9 +47,9 @@ router.route("/toys/add").post((req, res) => {
         user.save(err => {
           console.log("Printing error" + err);
         });
-
-      }).catch(err => res.status(400).json("Toy not saved" + err));
-    });
+      })
+      .catch(err => res.status(400).json("Toy not saved" + err));
+  });
 });
 
 router.route("/savedToys/add").post((req, res) => {
@@ -67,8 +66,8 @@ router.route("/savedToys/add").post((req, res) => {
         console.log("Printing error " + err);
       }
     });
-  })
-})
+  });
+});
 
 router.route("/savedtoys/:id").get((req, res) => {
   const userid = req.params.id;

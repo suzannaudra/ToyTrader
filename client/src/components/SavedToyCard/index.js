@@ -3,9 +3,14 @@ import React from "react";
 import Card from "react-bootstrap/Card";
 // import "./style.css";
 import DeleteIcon from "@material-ui/icons/Delete";
-import { Row, Col, Button } from "react-bootstrap";
+import { Row, Col } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import { IconButton } from "@material-ui/core";
+import ShowMoreText from 'react-show-more-text';
+
+function executeOnClick(isExpanded) {
+  console.log(isExpanded);
+}
 
 function SavedToyCard(props) {
   let data = props.currenttoy;
@@ -15,9 +20,19 @@ function SavedToyCard(props) {
       <Card.Body>
         <Row>
           <Col>
-            <Card.Title>{data.toyname}</Card.Title>
+            <Card.Title className="cardTitle">
+              <ShowMoreText className="showMore" lines={2}
+                more='Show more'
+                less='Show less'
+                anchorClass=''
+                onClick={() => executeOnClick()}
+                expanded={false}
+                width={250}>
+                {data.toyname}
+              </ShowMoreText>
+            </Card.Title>
           </Col>
-          <Col className="text-right">
+          <Col xs={3} className="text-right pl-0">
             <Link
               to={{
                 pathname: "/toy",
@@ -34,10 +49,10 @@ function SavedToyCard(props) {
 
         <Row>
           <Col>
-            <Card.Text>{data.condition}</Card.Text>
+            <Card.Text className="toyCondition">{data.condition}</Card.Text>
             <Card.Text>{data.location}</Card.Text>
           </Col>
-          <Col className="text-right my-2">
+          <Col xs={3} className="text-right my-2">
             <IconButton className="favorite" color="secondary">
               <DeleteIcon style={{ color: "red" }} />
             </IconButton>

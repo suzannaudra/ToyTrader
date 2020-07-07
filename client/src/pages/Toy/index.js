@@ -1,13 +1,11 @@
 import React, { Component } from "react";
 import "./style.css";
 import { Container, Row, Col, Card } from "react-bootstrap";
-import Image from "react-bootstrap/Image";
-import logo from "../../components/Image/fun-logo.png";
 import { IconButton } from "@material-ui/core";
 import FavoriteIcon from '@material-ui/icons/Favorite';
 import ShareIcon from '@material-ui/icons/Share';
-import MoreHorizIcon from '@material-ui/icons/MoreHoriz';
-
+// import MoreHorizIcon from '@material-ui/icons/MoreHoriz';
+import ContactMailIcon from '@material-ui/icons/ContactMail';
 // import CommentBox from "../../components/CommentSection/index";
 
 export default class Toy extends Component {
@@ -21,15 +19,15 @@ export default class Toy extends Component {
                 <Container fluid>
                     <Row>
                         <Col xs={12} sm={6}>
-                            <Card.Img src={this.props.location.state.props.image} />
+                            <Card.Img className="bigImage" src={this.props.location.state.props.image} />
                         </Col>
                         <Col className="description-text" xs={12} sm={6}>
-
-                            <Card body className="text-center">
-                                {" "}
+                            <Card >
                                 <Card.Header>{this.props.location.state.props.condition}</Card.Header>
+
+
                                 <Card.Body>
-                                    <Card.Title>Description</Card.Title>
+                                    <Card.Title className="toyPageDescription" >Description</Card.Title>
                                     <Card.Text>
                                         {this.props.location.state.props.description}
                                     </Card.Text>
@@ -39,34 +37,37 @@ export default class Toy extends Component {
                             <div className="text-center">
                                 <Col xs={12}>
                                     <Row className="centerrow">
-                                        <Col xs={3} sm={2}>
+                                        <Col className="iconDiv">
                                             <IconButton
                                                 className="favorite"
                                                 color="secondary"
+
                                             // savedtoyList={props.savedtoyList}
                                             >
-                                                <FavoriteIcon className="favorite material-icons" />
+                                                <FavoriteIcon fontSize="large" className="favorite material-icons" />
                                             </IconButton>
+                                            <p>Favorite</p>
                                         </Col>
-                                        <Col xs={3} sm={2}>
-                                            {/* <i className="share material-icons">share</i> */}
+                                        <Col className="iconDiv">
+
                                             <IconButton
                                                 className="favorite"
                                                 color="secondary"
                                             // savedtoyList={props.savedtoyList}
                                             >
-                                                <ShareIcon className="share material-icons" />
+                                                <ContactMailIcon fontSize="large" className="share material-icons" />
                                             </IconButton>
+                                            <p>Contact</p>
                                         </Col>
-                                        <Col xs={3} sm={2}>
+                                        <Col className="iconDiv">
                                             <IconButton
                                                 className="favorite"
                                                 color="secondary"
                                             // savedtoyList={props.savedtoyList}
                                             >
-                                                <MoreHorizIcon className="more material-icons" />
+                                                <ShareIcon fontSize="large" className="more material-icons" />
                                             </IconButton>
-                                            {/* <i className="more material-icons">more</i> */}
+                                            <p>Share</p>
                                         </Col>
                                     </Row>
                                 </Col>
