@@ -10,17 +10,7 @@ class SearchResults extends Component {
     };
   }
 
-  componentDidMount() {
-    axios
-      .get("http://localhost:3000/find/:query")
-      .then(response => {
-        console.log(response.data);
-        this.setState({ searchtoys: response.data });
-      })
-      .catch(error => {
-        console.log(error);
-      });
-  }
+  componentDidMount() {}
 
   render() {
     console.log("Search Results");

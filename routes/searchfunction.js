@@ -1,7 +1,8 @@
 const Toy = require("../models/modeltoys");
-
+const express = require("express");
+const toySearchRouter = express.Router();
 //API request that uses find to search for whatever is typed into the "query"
-app.get("/find/:query", function (req, res) {
+toySearchRouter.get("/find/:query", function (req, res) {
   var query = req.params.query;
   //Uses a RegEx expression to query the different defined categories in the schema
   const re = new RegExp(query, "i");
@@ -25,4 +26,4 @@ app.get("/find/:query", function (req, res) {
     })
     .catch(err => res.status(500).json({ error: err }));
 });
-module.exports = router;
+module.exports = toySearchRouter;
