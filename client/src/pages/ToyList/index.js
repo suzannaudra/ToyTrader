@@ -9,13 +9,13 @@ export default class ToyList extends Component {
     super(props);
   }
 
-  // toyList() {
-  //   return this.state.toys.map((currenttoy, index) => {
-  //     return (
-  //       <ToyCard props={currenttoy} deleteToy={this.deleteToy} key={index} />
-  //     );
-  //   });
-  // }
+  toyList() {
+    return this.state.toys.map((currenttoy, index) => {
+      return (
+        <ToyCard props={currenttoy} deleteToy={this.deleteToy} key={index} />
+      );
+    });
+  }
 
   savedtoyList() {
     //TODO: layer
@@ -31,7 +31,7 @@ export default class ToyList extends Component {
       <div>
         <h3>TOYS</h3>
         <CardDeck>
-
+          
           {this.state.toys.map((currenttoy, index) => {
             return (
               <Col xs={12} sm={6} lg={4} className="px-0 pb-3">

@@ -20,9 +20,13 @@ mongoose.Promise = global.Promise;
 
 // Connect to the Mongo DB
 mongoose
-  .connect(process.env.MONGODB_URI || "mongodb://localhost/toytrader", {
-    useNewUrlParser: true
-  })
+  .connect(
+    process.env.MONGODB_URI ||
+      "mongodb://Suzann:abc123@ds253857.mlab.com:53857/heroku_82z6phns",
+    {
+      useNewUrlParser: true
+    }
+  )
   .then(
     () => console.log("Connected to Mongo"),
     err => {
