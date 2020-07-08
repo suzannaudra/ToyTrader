@@ -21,8 +21,9 @@ export default class NavigationBar extends Component {
             </NavDropdown>
           </Nav>
           <Form inline>
-            <FormControl type="text" placeholder="Find a toy!" className="Searchbar text-center" />
-            <Button variant="outline-info">Search</Button>
+            <FormControl type="text" placeholder="Find a toy!" className="Searchbar text-center" value={this.props.query}
+              onChange={this.props.onChange}/>
+            <Button variant="outline-info" onClick={this.props.clickHandler} onKeyPress={this.props.onKeyPress}>Search</Button>
           </Form>
         </Navbar.Collapse>
       </Navbar>

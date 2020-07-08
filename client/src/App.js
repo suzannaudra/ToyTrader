@@ -15,6 +15,7 @@ import CarouselSlider from "./components/CarouselSlider";
 import axios from "axios";
 import SignedInNav from "./components/SignedInNav";
 import AboutUs from "./pages/AboutUs";
+import SearchResults from "./pages/searchresults";
 
 class App extends Component {
   constructor() {
@@ -22,12 +23,27 @@ class App extends Component {
     this.state = {
       loggedIn: false,
       userid: null,
-      firstName: null
+      firstName: null,
+      toys: [],
+      query: ""
     };
   }
 
   componentDidMount = () => {
     this.getUser();
+  };
+
+  getToysByQuery = () => {
+    console.log("will now search for new toy");
+    axios
+      .get(`http://localhost:3000/find/${this.state.query}`)
+      .then(response => {
+        console.log(response.data);
+        this.setState({ toys: response.data });
+      })
+      .catch(error => {
+        console.log(error);
+      });
   };
 
   updatedUser = userObject => {
@@ -67,14 +83,15 @@ class App extends Component {
           userid: null,
           firstName: null
         });
-        window.location = "/"
+        window.location = "/";
         console.log("You have logged out");
       })
       .catch(error => console.log("Loggout error"));
   };
 
   render() {
-    console.log("app render " + this.state.firstName);
+    console.log("app render " + this.state.query);
+    console.table(this.state.toys);
     return (
       <Router>
         <div className="container">
@@ -85,14 +102,37 @@ class App extends Component {
               kickUser={this.kickUser}
             />
           ) : (
-              <LogInNav updatedUser={this.updatedUser} />
-            )}
+            <LogInNav updatedUser={this.updatedUser} />
+          )}
 
-          <NavigationBar />
+          <NavigationBar
+            onChange={event => this.setState({ query: event.target.value })}
+            query={this.state.query}
+            clickHandler={this.getToysByQuery}
+            onKeyPress={event => {
+              if ("Enter" === event.key) {
+                this.getToysByQuery();
+              }
+            }}
+          />
           <CarouselSlider />
           <br />
-          <Route path="/" exact render={props => (<ToyList {...props} userid={this.state.userid} />)} />
-          <Route path="/toys" exact render={props => (<ToyList {...props} userid={this.state.userid} />)} />
+          <Route
+            path="/"
+            exact
+            render={props =>
+              this.state.query ? (
+                <SearchResults {...props} userid={this.state.userid} />
+              ) : (
+                <ToyList {...props} userid={this.state.userid} />
+              )
+            }
+          />
+          <Route
+            path="/toys"
+            exact
+            render={props => <ToyList {...props} userid={this.state.userid} />}
+          />
           <Route path="/toys/update" component={EditToy} />
           <Route path="/aboutUs" component={AboutUs} />
           <Route
@@ -111,7 +151,12 @@ class App extends Component {
               <UserIdentification {...props} updatedUser={this.updatedUser} />
             )}
           />
-          <Route path="/savedtoys" render={props => (<SavedToyList {...props} userid={this.state.userid} />)} />
+          <Route
+            path="/savedtoys"
+            render={props => (
+              <SavedToyList {...props} userid={this.state.userid} />
+            )}
+          />
           {/* <Route path="/toy" render={props => (<Toy {...props} userid={this.state.userid} />)} /> */}
           <Route path="/toy" component={Toy} />
         </div>

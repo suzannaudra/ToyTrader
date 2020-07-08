@@ -27,7 +27,7 @@ export default class savedToy extends Component {
 
     deleteToy(id) {
         axios
-            .delete("http://localhost:3000/savedtoys/" + id)
+            .delete(`http://localhost:3000/savedtoys/${id}`)
             .then(res => console.log(res.data));
 
         this.setState({
@@ -59,6 +59,7 @@ export default class savedToy extends Component {
                                 <SavedToyCard
                                     currenttoy={currenttoy.data}
                                     key={index}
+                                    onClick={() => this.deleteToy(currenttoy.data._id)}
                                 />
                             </Col>
                         )
