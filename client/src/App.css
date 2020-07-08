@@ -33,3 +33,7 @@
     transform: rotate(360deg);
   }
 }
+
+body{
+  font-family: 'Luckiest Guy', cursive;
+}

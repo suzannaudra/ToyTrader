@@ -22,12 +22,16 @@ export default class Toy extends Component {
             .post("http://localhost:3000/savedToys/add", data).then(res => console.log(res.data));
     }
 
+    sendEmail(ownerid) {
+        axios.get(`http://localhost:3000/email/${ownerid}`).then(res => { window.location = `mailto:${res.data.email}` })
+    }
+
 
     render() {
-        // console.log(this.props.location.state.props)
+        console.log(this.props.location.state.props)
         // console.log("Listing toycard props")
         console.log("getting location userid")
-        console.log(this.props.location.state.userid)
+        console.log(this.props.location.state.props.userid)
         return (
             <div>
                 <h3>{this.props.location.state.props.toyname}</h3>
@@ -59,8 +63,6 @@ export default class Toy extends Component {
                                                 className="favorite"
                                                 color="secondary"
                                                 onClick={() => this.savedtoyList(this.props.location.state.props._id, this.props.location.state.userid)}
-                                            // toyid={this.props.location.state.props._id}
-                                            // userid={this.props.location.state.props.userid}
                                             >
                                                 <FavoriteIcon fontSize="large" className="favorite material-icons" />
                                             </IconButton>
@@ -71,7 +73,7 @@ export default class Toy extends Component {
                                             <IconButton
                                                 className="favorite"
                                                 color="secondary"
-                                            // savedtoyList={props.savedtoyList}
+                                                onClick={() => this.sendEmail(this.props.location.state.props.userid)}
                                             >
                                                 <ContactMailIcon fontSize="large" className="share material-icons" />
                                             </IconButton>

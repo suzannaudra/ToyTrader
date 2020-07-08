@@ -7,6 +7,23 @@ import { Col } from "react-bootstrap";
 export default class ToyList extends Component {
   constructor(props) {
     super(props);
+
+    this.state = {
+      toys: []
+    };
+  }
+
+  componentDidMount() {
+    axios
+      .get("http://localhost:3000/toys")
+      .then(response => {
+        console.log(response.data);
+        this.setState({ toys: response.data });
+      })
+      .catch(error => {
+        console.log(error);
+      });
+
   }
 
   toyList() {
@@ -17,13 +34,6 @@ export default class ToyList extends Component {
     });
   }
 
-  savedtoyList() {
-    //TODO: layer
-    console.log("I was clicked");
-  }
-
-
-
 
 
   render() {
@@ -31,7 +41,7 @@ export default class ToyList extends Component {
       <div>
         <h3>TOYS</h3>
         <CardDeck>
-          
+
           {this.state.toys.map((currenttoy, index) => {
             return (
               <Col xs={12} sm={6} lg={4} className="px-0 pb-3">

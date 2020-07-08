@@ -4,7 +4,7 @@ body {
   min-height: 100vh;
   margin: 0;
 
-  font-family: 'Luckiest Guy', cursive;
+  font-family: 'Luckiest Guy', cursive !important;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   background-image: linear-gradient(#FEC35D, #90DCDA); 
