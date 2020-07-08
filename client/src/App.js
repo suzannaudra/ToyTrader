@@ -14,6 +14,7 @@ import LogInNav from "./components/LogInNav";
 import CarouselSlider from "./components/CarouselSlider";
 import axios from "axios";
 import SignedInNav from "./components/SignedInNav";
+import AboutUs from "./pages/AboutUs";
 
 class App extends Component {
   constructor() {
@@ -93,6 +94,7 @@ class App extends Component {
           <Route path="/" exact render={props => (<ToyList {...props} userid={this.state.userid} />)} />
           <Route path="/toys" exact render={props => (<ToyList {...props} userid={this.state.userid} />)} />
           <Route path="/toys/update" component={EditToy} />
+          <Route path="/aboutUs" component={AboutUs} />
           <Route
             path="/toys/add"
             render={props => (
