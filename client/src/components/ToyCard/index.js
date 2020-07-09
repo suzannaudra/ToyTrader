@@ -20,7 +20,7 @@ function savedtoyList(currenttoy, userid) {
     toyid: currenttoy._id
   }
   axios
-    .post("http://localhost:3000/savedToys/add", data).then(res => console.log(res.data));
+    .post("/savedToys/add", data).then(res => console.log(res.data));
 }
 
 function ToyCard(props) {

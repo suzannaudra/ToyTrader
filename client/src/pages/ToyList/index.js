@@ -15,7 +15,7 @@ export default class ToyList extends Component {
 
   componentDidMount() {
     axios
-      .get("http://localhost:3000/toys")
+      .get("/toys")
       .then(response => {
         console.log(response.data);
         this.setState({ toys: response.data });
