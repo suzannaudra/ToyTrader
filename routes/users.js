@@ -67,7 +67,7 @@ router.route("/user/login").post(passport.authenticate("local"), (req, res) => {
 });
 
 router.route("/user/login").get((req, res) => {
-  let user = req.session.passport.user;
+  let user = req.user;
   console.log("Retrieving user", req.session.passport.user);
   if (user) {
     let userInfo = {

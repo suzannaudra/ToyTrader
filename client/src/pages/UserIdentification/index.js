@@ -9,8 +9,7 @@ export default class Validation extends Component {
     firstName: "",
     lastName: "",
     email: "",
-    password: "",
-
+    password: ""
   };
 
   handleInputChange = event => {
@@ -33,7 +32,7 @@ export default class Validation extends Component {
     };
 
     axios
-      .post("http://localhost:3000/user/login", user)
+      .post("/user/login", user)
       .then(res => {
         this.props.updatedUser({
           loggedIn: true,
@@ -41,7 +40,7 @@ export default class Validation extends Component {
           firstName: res.data.firstName
         });
         console.log(res.data);
-        window.location = "/"
+        window.location = "/";
       })
       .catch();
 
@@ -62,9 +61,7 @@ export default class Validation extends Component {
       email: this.state.email,
       password: this.state.password
     };
-    axios
-      .post("http://localhost:3000/user/add", user)
-      .then(res => console.log(res.data));
+    axios.post("/user/add", user).then(res => console.log(res.data));
     this.setState({ redirectTo: "/" });
 
     this.setState({
@@ -86,15 +83,15 @@ export default class Validation extends Component {
             onChange={this.handleInputChange}
           />
         ) : (
-            <SignUp
-              firstName={this.state.firstName}
-              lastName={this.state.lastName}
-              email={this.state.email}
-              password={this.state.password}
-              onClick={this.handleSignUp}
-              onChange={this.handleInputChange}
-            />
-          )}
+          <SignUp
+            firstName={this.state.firstName}
+            lastName={this.state.lastName}
+            email={this.state.email}
+            password={this.state.password}
+            onClick={this.handleSignUp}
+            onChange={this.handleInputChange}
+          />
+        )}
       </form>
     );
   }
