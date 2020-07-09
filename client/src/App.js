@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { BrowserRouter as Router, Route } from "react-router-dom";
 import "./App.css";
 import "bootstrap/dist/css/bootstrap.min.css";
+import { Redirect } from "react-router-dom"
 
 import NavigationBar from "./components/Navbar";
 import ToyList from "./pages/ToyList";
@@ -15,6 +16,7 @@ import CarouselSlider from "./components/CarouselSlider";
 import axios from "axios";
 import SignedInNav from "./components/SignedInNav";
 import AboutUs from "./pages/AboutUs";
+import SearchResults from "./pages/searchresults";
 
 class App extends Component {
   constructor() {
@@ -22,12 +24,33 @@ class App extends Component {
     this.state = {
       loggedIn: false,
       userid: null,
-      firstName: null
+      firstName: null,
+      toys: [],
+      query: ""
     };
   }
 
   componentDidMount = () => {
     this.getUser();
+  };
+
+  handleSubmit = () => {
+    if (this.state.query) {
+      console.log("will now search for new toy");
+      console.log(this.state.query)
+      axios
+        .get(`http://localhost:3000/find/${this.state.query}`)
+        .then(response => {
+          console.log(response.data);
+          this.setState({ toys: response.data });
+        })
+        .catch(error => {
+          console.log(error);
+        });
+
+    } else {
+      alert("Please enter some search text!")
+    }
   };
 
   updatedUser = userObject => {
@@ -67,14 +90,15 @@ class App extends Component {
           userid: null,
           firstName: null
         });
-        window.location = "/"
+        window.location = "/";
         console.log("You have logged out");
       })
       .catch(error => console.log("Loggout error"));
   };
 
   render() {
-    console.log("app render " + this.state.firstName);
+    console.log("app render " + this.state.query);
+    console.table(this.state.toys);
     return (
       <Router>
         <div className="container">
@@ -88,11 +112,42 @@ class App extends Component {
               <LogInNav updatedUser={this.updatedUser} />
             )}
 
-          <NavigationBar />
+          <NavigationBar
+            onChange={event => this.setState({ query: event.target.value })}
+            query={this.state.query}
+            clickHandler={this.handleSubmit}
+            onKeyPress={event => {
+              if ("Enter" === event.key) {
+                this.handleSubmit();
+              }
+            }}
+
+          />
+
           <CarouselSlider />
           <br />
-          <Route path="/" exact render={props => (<ToyList {...props} userid={this.state.userid} />)} />
-          <Route path="/toys" exact render={props => (<ToyList {...props} userid={this.state.userid} />)} />
+          {this.state.toys.length > 0 && <Redirect to={{
+            pathname: '/results',
+            state: { results: this.state.results }
+          }} />}
+
+          <Route
+            path="/"
+            exact
+            render={props =>
+              (<ToyList {...props} userid={this.state.userid} />)
+
+            }
+          />
+
+          <Route path="/results" exact
+            component={props => <SearchResults {...props} userid={this.state.userid} query={this.state.query} />} />
+
+          <Route
+            path="/toys"
+            exact
+            render={props => <ToyList {...props} userid={this.state.userid} />}
+          />
           <Route path="/toys/update" component={EditToy} />
           <Route path="/aboutUs" component={AboutUs} />
           <Route
@@ -111,7 +166,12 @@ class App extends Component {
               <UserIdentification {...props} updatedUser={this.updatedUser} />
             )}
           />
-          <Route path="/savedtoys" render={props => (<SavedToyList {...props} userid={this.state.userid} />)} />
+          <Route
+            path="/savedtoys"
+            render={props => (
+              <SavedToyList {...props} userid={this.state.userid} />
+            )}
+          />
           {/* <Route path="/toy" render={props => (<Toy {...props} userid={this.state.userid} />)} /> */}
           <Route path="/toy" component={Toy} />
         </div>

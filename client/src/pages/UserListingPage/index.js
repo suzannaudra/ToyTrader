@@ -119,17 +119,22 @@ export default class UserListingPage extends Component {
 
   }
 
-  deleteToy(id) {
-    axios
-      .delete("http://localhost:3000/toy" + id)
-      .then(res => console.log(res.data));
+  deleteToy(userid, toyid) {
+    console.log(userid)
 
-    this.setState({
-      toysListing: this.state.toysListing.filter(el => el._id !== id)
-    });
+    console.log(toyid)
+    const data = { userid: userid, toyid: toyid }
+    console.log(data)
+    axios
+      .delete(`http://localhost:3000/toy/${userid}/${toyid}`)
+      .then(res => console.log(res.data)).catch(err => console.log(err))
+    // this.setState({
+    //   toysListing: this.state.toysListing.filter(el => el._id !== toyid)
+    // });
   }
 
   render() {
+    console.log(this.props.userid)
     console.log(this.state.toysListing)
     return (
       <div>
@@ -138,11 +143,13 @@ export default class UserListingPage extends Component {
           <CardDeck>
             {this.state.toysListing.map((currenttoy, index) => {
               return (
-                <Col xs={12} sm={6} lg={4} className="px-0 pb-3">
+                <Col xs={12} sm={6} lg={4} className="px-0 pb-3" key={index}>
+                  {/* Used savedToyCard because reuse component */}
                   <SavedToyCard
                     currenttoy={currenttoy}
                     deleteToy={this.deleteToy}
                     key={index}
+                    userid={this.props.userid}
                   />
                 </Col>
               );

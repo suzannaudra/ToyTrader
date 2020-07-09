@@ -27,7 +27,7 @@ export default class savedToy extends Component {
 
     deleteToy(id) {
         axios
-            .delete("http://localhost:3000/savedtoys/" + id)
+            .delete(`http://localhost:3000/savedtoys/${id}`)
             .then(res => console.log(res.data));
 
         this.setState({
@@ -47,18 +47,19 @@ export default class savedToy extends Component {
     }
 
     render() {
-        console.log("List of favorited toys");
-        console.table(this.state.toys);
+        // console.log("List of favorited toys");
+        // console.table(this.state.toys);
         return (
             <div>
                 <h3>TOYS</h3>
                 <CardDeck>
                     {this.state.toys.map((currenttoy, index) => {
                         return (
-                            <Col xs={12} sm={6} lg={4} className="px-0 pb-3">
+                            <Col xs={12} sm={6} lg={4} className="px-0 pb-3" key={index}>
                                 <SavedToyCard
                                     currenttoy={currenttoy.data}
                                     key={index}
+                                    onClick={() => this.deleteToy(currenttoy.data._id)}
                                 />
                             </Col>
                         )
