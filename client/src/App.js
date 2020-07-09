@@ -122,7 +122,11 @@ class App extends Component {
             exact
             render={props =>
               this.state.query ? (
-                <SearchResults {...props} userid={this.state.userid} />
+                <SearchResults
+                  toys={this.state.toys}
+                  {...props}
+                  userid={this.state.userid}
+                />
               ) : (
                 <ToyList {...props} userid={this.state.userid} />
               )

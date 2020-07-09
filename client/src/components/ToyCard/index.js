@@ -7,8 +7,7 @@ import { Row, Col } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import { IconButton } from "@material-ui/core";
 import axios from "axios";
-import ShowMoreText from 'react-show-more-text';
-
+import ShowMoreText from "react-show-more-text";
 
 function executeOnClick(isExpanded) {
   console.log(isExpanded);
@@ -18,29 +17,33 @@ function savedtoyList(currenttoy, userid) {
   const data = {
     userid: userid,
     toyid: currenttoy._id
-  }
+  };
   axios
-    .post("http://localhost:3000/savedToys/add", data).then(res => console.log(res.data));
+    .post("http://localhost:3000/savedToys/add", data)
+    .then(res => console.log(res.data));
 }
 
 function ToyCard(props) {
-  let data = props.currenttoy;
+  let data = props.currenttoy || {};
   console.log(data);
-  return (
 
+  return (
     <Card>
       <Card.Img variant="top" src={data.image} className="cardImg" />
       <Card.Body className="cardBody">
         <Row>
           <Col>
             <Card.Title className="cardTitle">
-              <ShowMoreText className="showMore" lines={2}
-                more='Show more'
-                less='Show less'
-                anchorClass=''
+              <ShowMoreText
+                className="showMore"
+                lines={2}
+                more="Show more"
+                less="Show less"
+                anchorClass=""
                 onClick={() => executeOnClick()}
                 expanded={false}
-                width={250}>
+                width={250}
+              >
                 {data.toyname}
               </ShowMoreText>
             </Card.Title>
@@ -83,8 +86,6 @@ function ToyCard(props) {
         </small>
       </Card.Footer>
     </Card>
-
-
   );
 }
 export default ToyCard;

@@ -32,19 +32,21 @@ export default class UserListingPage extends Component {
   }
 
   componentWillReceiveProps(props) {
-    console.log(props.userid)
-    let url = `http://localhost:3000/listing/${props.userid}`;
-    console.log(url)
+    console.log(props.userid);
+    let url = `/listing/${props.userid}`;
+    console.log(url);
     axios
       .get(url)
       .then(response => {
         console.log(response);
-        this.setState({ userid: props.userid, toysListing: response.data.toys });
-      }).catch(err => {
-        console.log(err)
+        this.setState({
+          userid: props.userid,
+          toysListing: response.data.toys
+        });
       })
-
-
+      .catch(err => {
+        console.log(err);
+      });
   }
 
   onChangeToyname(e) {
@@ -105,7 +107,6 @@ export default class UserListingPage extends Component {
 
     axios.post("/toys/add", toy).then(res => {
       console.log(res.data);
-
     });
 
     this.setState({
@@ -115,14 +116,11 @@ export default class UserListingPage extends Component {
       location: "",
       image: "",
       Date: ""
-    })
-
+    });
   }
 
   deleteToy(id) {
-    axios
-      .delete("http://localhost:3000/toy" + id)
-      .then(res => console.log(res.data));
+    axios.delete("/toy" + id).then(res => console.log(res.data));
 
     this.setState({
       toysListing: this.state.toysListing.filter(el => el._id !== id)
@@ -130,7 +128,7 @@ export default class UserListingPage extends Component {
   }
 
   render() {
-    console.log(this.state.toysListing)
+    console.log(this.state.toysListing);
     return (
       <div>
         <div>
