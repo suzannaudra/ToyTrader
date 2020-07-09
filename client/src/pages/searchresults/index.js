@@ -11,19 +11,30 @@ class SearchResults extends Component {
     };
   }
 
+<<<<<<< HEAD
+  componentWillReceiveProps(props) {
+    // console.log("this is search results render");
+    // console.log(props);
+    // axios.get("/find:query").then(response => {
+    //   this.setState({ searchtoys: response.data });
+    // });
+  }
+=======
 
+>>>>>>> 1eda1e078597e82e9444614f8041f6718eb694dc
 
   render() {
     console.log("this is search results render");
     console.log(this.props)
     console.log("Search Results");
     console.table(this.state.searchtoys);
+    console.log(this.props.toys);
     return (
       <div>
         <CardDeck>
-          {this.state.searchtoys.length > 0 ? (
-            this.state.searchtoys.map((toy, index) => {
-              return <ToyCard query={toy} key={index} />;
+          {this.props.toys.length > 0 ? (
+            this.props.toys.map((toy, index) => {
+              return <ToyCard currenttoy={toy} key={index} />;
             })
           ) : (
               <div>Loading .....</div>
