@@ -135,7 +135,7 @@ class App extends Component {
             path="/"
             exact
             render={props =>
-<<<<<<< HEAD
+
               this.state.query ? (
                 <SearchResults
                   toys={this.state.toys}
@@ -143,12 +143,9 @@ class App extends Component {
                   userid={this.state.userid}
                 />
               ) : (
-                <ToyList {...props} userid={this.state.userid} />
-              )
-=======
-              (<ToyList {...props} userid={this.state.userid} />)
+                  <ToyList {...props} userid={this.state.userid} />
+                )
 
->>>>>>> 1eda1e078597e82e9444614f8041f6718eb694dc
             }
           />
 
