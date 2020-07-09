@@ -11,12 +11,11 @@ class SearchResults extends Component {
     };
   }
 
-  componentWillReceiveProps(props) {
-    console.log("this is search results render");
-    console.log(props);
-  }
+
 
   render() {
+    console.log("this is search results render");
+    console.log(this.props)
     console.log("Search Results");
     console.table(this.state.searchtoys);
     return (
@@ -27,8 +26,8 @@ class SearchResults extends Component {
               return <ToyCard query={toy} key={index} />;
             })
           ) : (
-            <div>Loading .....</div>
-          )}
+              <div>Loading .....</div>
+            )}
         </CardDeck>
       </div>
     );

@@ -44,7 +44,7 @@ export default class ToyList extends Component {
 
           {this.state.toys.map((currenttoy, index) => {
             return (
-              <Col xs={12} sm={6} lg={4} className="px-0 pb-3">
+              <Col xs={12} sm={6} lg={4} className="px-0 pb-3" key={index}>
                 <ToyCard
                   currenttoy={currenttoy}
                   userid={this.props.userid}

@@ -25,7 +25,7 @@ function savedtoyList(currenttoy, userid) {
 
 function ToyCard(props) {
   let data = props.currenttoy;
-  console.log(data);
+  // console.log(data);
   return (
 
     <Card>
