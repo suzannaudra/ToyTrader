@@ -11,17 +11,7 @@ class SearchResults extends Component {
     };
   }
 
-<<<<<<< HEAD
-  componentWillReceiveProps(props) {
-    // console.log("this is search results render");
-    // console.log(props);
-    // axios.get("/find:query").then(response => {
-    //   this.setState({ searchtoys: response.data });
-    // });
-  }
-=======
 
->>>>>>> 1eda1e078597e82e9444614f8041f6718eb694dc
 
   render() {
     console.log("this is search results render");
