@@ -11,6 +11,7 @@ class SearchResults extends Component {
     };
   }
 
+<<<<<<< HEAD
   componentWillReceiveProps(props) {
     // console.log("this is search results render");
     // console.log(props);
@@ -18,8 +19,13 @@ class SearchResults extends Component {
     //   this.setState({ searchtoys: response.data });
     // });
   }
+=======
+
+>>>>>>> 1eda1e078597e82e9444614f8041f6718eb694dc
 
   render() {
+    console.log("this is search results render");
+    console.log(this.props)
     console.log("Search Results");
     console.table(this.state.searchtoys);
     console.log(this.props.toys);
@@ -31,8 +37,8 @@ class SearchResults extends Component {
               return <ToyCard currenttoy={toy} key={index} />;
             })
           ) : (
-            <div>Loading .....</div>
-          )}
+              <div>Loading .....</div>
+            )}
         </CardDeck>
       </div>
     );

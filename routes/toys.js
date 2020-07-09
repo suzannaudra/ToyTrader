@@ -87,10 +87,23 @@ router.route("/toy/:id").get((req, res) => {
     .catch(err => res.status(400).json("Error: " + err));
 });
 
-router.route("/toy/:id").delete((req, res) => {
-  Toy.findByIdAndDelete(req.params.id)
-    .then(() => res.json("Toy deleted."))
-    .catch(err => res.status(400).json("Toy not deleted " + err));
+router.route("/toy/:userid/:toyid").delete((req, res) => {
+  console.log("Now deleting toy")
+  console.log(req.params)
+  Toy.findByIdAndDelete(req.params.toyid).then(() => {
+    console.log("Now delteing toy from user " + req.params.userid)
+
+    User.findByIdAndUpdate(req.params.userid).then((user) => {
+      console.log("Now removing toy from user array")
+      console.log(user)
+      user.toys.pull({ _id: req.params.toyid });
+      console.log(user.toys)
+      user.save(err => {
+        console.log("Printing error" + err);
+      });
+
+    }).catch(err => res.status(400).json("Toy is not deleted" + err));
+  }).catch(err => res.status(400).json("Toy is not deleted" + err));
 });
 
 router.route("/toy/update/:id").post((req, res) => {

@@ -1,3 +1,20 @@
+@media only screen and (max-width: 768px) {
+    .form-inline {
+        flex-flow: column;
+    }
+    .btn.btn-outline-info {
+       margin-left: auto;
+       margin-right: auto;
+       margin-top: 5px;
+    } 
+    .Searchbar {
+        margin-top: 0px;
+        margin-bottom: 0px;
+        margin-left: auto!important;
+        margin-right: auto!important;
+    }
+}
+
 .navbar-container{
     border-radius: 20px;
     margin-top: 1vw;

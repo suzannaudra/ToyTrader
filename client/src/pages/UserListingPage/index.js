@@ -119,16 +119,32 @@ export default class UserListingPage extends Component {
     });
   }
 
+<<<<<<< HEAD
   deleteToy(id) {
     axios.delete("/toy" + id).then(res => console.log(res.data));
+=======
+  deleteToy(userid, toyid) {
+    console.log(userid)
+>>>>>>> 1eda1e078597e82e9444614f8041f6718eb694dc
 
-    this.setState({
-      toysListing: this.state.toysListing.filter(el => el._id !== id)
-    });
+    console.log(toyid)
+    const data = { userid: userid, toyid: toyid }
+    console.log(data)
+    axios
+      .delete(`http://localhost:3000/toy/${userid}/${toyid}`)
+      .then(res => console.log(res.data)).catch(err => console.log(err))
+    // this.setState({
+    //   toysListing: this.state.toysListing.filter(el => el._id !== toyid)
+    // });
   }
 
   render() {
+<<<<<<< HEAD
     console.log(this.state.toysListing);
+=======
+    console.log(this.props.userid)
+    console.log(this.state.toysListing)
+>>>>>>> 1eda1e078597e82e9444614f8041f6718eb694dc
     return (
       <div>
         <div>
@@ -136,11 +152,13 @@ export default class UserListingPage extends Component {
           <CardDeck>
             {this.state.toysListing.map((currenttoy, index) => {
               return (
-                <Col xs={12} sm={6} lg={4} className="px-0 pb-3">
+                <Col xs={12} sm={6} lg={4} className="px-0 pb-3" key={index}>
+                  {/* Used savedToyCard because reuse component */}
                   <SavedToyCard
                     currenttoy={currenttoy}
                     deleteToy={this.deleteToy}
                     key={index}
+                    userid={this.props.userid}
                   />
                 </Col>
               );

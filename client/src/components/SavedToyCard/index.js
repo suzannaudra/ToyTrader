@@ -14,12 +14,16 @@ function executeOnClick(isExpanded) {
 
 function SavedToyCard(props) {
   let data = props.currenttoy;
+  console.log("SavedToyCard")
+  console.log(props.userid)
+  console.log(props.deleteToy)
+  console.log(data)
   return (
     <Card>
       <Card.Img variant="top" src={data.image} className="cardImg" />
       <Card.Body>
         <Row>
-          <Col>
+          <Col key={data.key}>
             <Card.Title className="cardTitle">
               <ShowMoreText className="showMore" lines={2}
                 more='Show more'
@@ -53,7 +57,7 @@ function SavedToyCard(props) {
             <Card.Text>{data.location}</Card.Text>
           </Col>
           <Col xs={3} className="text-right my-2">
-            <IconButton className="favorite" color="secondary">
+            <IconButton className="favorite" color="secondary" onClick={() => props.deleteToy(props.userid, data._id)}>
               <DeleteIcon style={{ color: "red" }} />
             </IconButton>
           </Col>

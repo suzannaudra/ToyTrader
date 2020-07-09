@@ -47,15 +47,15 @@ export default class savedToy extends Component {
     }
 
     render() {
-        console.log("List of favorited toys");
-        console.table(this.state.toys);
+        // console.log("List of favorited toys");
+        // console.table(this.state.toys);
         return (
             <div>
                 <h3>TOYS</h3>
                 <CardDeck>
                     {this.state.toys.map((currenttoy, index) => {
                         return (
-                            <Col xs={12} sm={6} lg={4} className="px-0 pb-3">
+                            <Col xs={12} sm={6} lg={4} className="px-0 pb-3" key={index}>
                                 <SavedToyCard
                                     currenttoy={currenttoy.data}
                                     key={index}
