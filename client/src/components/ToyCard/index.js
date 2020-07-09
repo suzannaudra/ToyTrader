@@ -17,14 +17,10 @@ function savedtoyList(currenttoy, userid) {
   const data = {
     userid: userid,
     toyid: currenttoy._id
-<<<<<<< HEAD
-  };
-  axios.post("/savedToys/add", data).then(res => console.log(res.data));
-=======
-  }
+
   axios
     .post("/savedToys/add", data).then(res => console.log(res.data));
->>>>>>> e1974076b89a9a732187b21e82d019a311225958
+
 }
 
 function ToyCard(props) {
