@@ -97,7 +97,7 @@ export default class EditToy extends Component {
     console.log(toy);
 
     axios
-      .post("http://localhost:3000/toys" + this.props.match.params.id, toy)
+      .post("/toys" + this.props.match.params.id, toy)
       .then(res => console.log(res.data));
 
     window.location = "/";

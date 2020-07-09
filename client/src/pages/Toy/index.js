@@ -20,6 +20,7 @@ export default class Toy extends Component {
     axios.post("/savedToys/add", data).then(res => console.log(res.data));
   }
 
+<<<<<<< HEAD
   sendEmail(ownerid) {
     axios.get(`/email/${ownerid}`).then(res => {
       window.location = `mailto:${res.data.email}`;
@@ -50,6 +51,22 @@ export default class Toy extends Component {
                 <Card.Header>
                   {this.props.location.state.props.condition}
                 </Card.Header>
+=======
+    savedtoyList(currenttoy, userid) {
+        console.log("Now saving toy")
+        console.log(userid)
+        const data = {
+            userid: userid,
+            toyid: currenttoy
+        }
+        axios
+            .post("/savedToys/add", data).then(res => console.log(res.data));
+    }
+
+    sendEmail(ownerid) {
+        axios.get(`/email/${ownerid}`).then(res => { window.location = `mailto:${res.data.email}` })
+    }
+>>>>>>> e1974076b89a9a732187b21e82d019a311225958
 
                 <Card.Body>
                   <Card.Title className="toyPageDescription">

@@ -39,7 +39,7 @@ class App extends Component {
       console.log("will now search for new toy");
       console.log(this.state.query)
       axios
-        .get(`http://localhost:3000/find/${this.state.query}`)
+        .get(`/find/${this.state.query}`)
         .then(response => {
           console.log(response.data);
           this.setState({ toys: response.data });

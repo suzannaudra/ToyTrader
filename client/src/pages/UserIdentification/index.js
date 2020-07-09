@@ -61,7 +61,13 @@ export default class Validation extends Component {
       email: this.state.email,
       password: this.state.password
     };
+<<<<<<< HEAD
     axios.post("/user/add", user).then(res => console.log(res.data));
+=======
+    axios
+      .post("/user/add", user)
+      .then(res => console.log(res.data));
+>>>>>>> e1974076b89a9a732187b21e82d019a311225958
     this.setState({ redirectTo: "/" });
 
     this.setState({

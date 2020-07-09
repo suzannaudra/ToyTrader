@@ -32,9 +32,15 @@ export default class UserListingPage extends Component {
   }
 
   componentWillReceiveProps(props) {
+<<<<<<< HEAD
     console.log(props.userid);
     let url = `/listing/${props.userid}`;
     console.log(url);
+=======
+    console.log(props.userid)
+    let url = `/listing/${props.userid}`;
+    console.log(url)
+>>>>>>> e1974076b89a9a732187b21e82d019a311225958
     axios
       .get(url)
       .then(response => {
@@ -131,7 +137,7 @@ export default class UserListingPage extends Component {
     const data = { userid: userid, toyid: toyid }
     console.log(data)
     axios
-      .delete(`http://localhost:3000/toy/${userid}/${toyid}`)
+      .delete(`/toy/${userid}/${toyid}`)
       .then(res => console.log(res.data)).catch(err => console.log(err))
     // this.setState({
     //   toysListing: this.state.toysListing.filter(el => el._id !== toyid)
