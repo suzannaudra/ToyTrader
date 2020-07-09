@@ -33,7 +33,7 @@ export default class Validation extends Component {
     };
 
     axios
-      .post("http://localhost:3000/user/login", user)
+      .post("/user/login", user)
       .then(res => {
         this.props.updatedUser({
           loggedIn: true,
@@ -63,7 +63,7 @@ export default class Validation extends Component {
       password: this.state.password
     };
     axios
-      .post("http://localhost:3000/user/add", user)
+      .post("/user/add", user)
       .then(res => console.log(res.data));
     this.setState({ redirectTo: "/" });
 

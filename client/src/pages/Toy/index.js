@@ -19,11 +19,11 @@ export default class Toy extends Component {
             toyid: currenttoy
         }
         axios
-            .post("http://localhost:3000/savedToys/add", data).then(res => console.log(res.data));
+            .post("/savedToys/add", data).then(res => console.log(res.data));
     }
 
     sendEmail(ownerid) {
-        axios.get(`http://localhost:3000/email/${ownerid}`).then(res => { window.location = `mailto:${res.data.email}` })
+        axios.get(`/email/${ownerid}`).then(res => { window.location = `mailto:${res.data.email}` })
     }
 
 

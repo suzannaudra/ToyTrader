@@ -14,7 +14,7 @@ export default class savedToy extends Component {
 
     componentWillReceiveProps(props) {
         axios
-            .get(`http://localhost:3000/savedtoys/${props.userid}`)
+            .get(`/savedtoys/${props.userid}`)
             .then(response => {
                 console.log("Saved Toys");
                 console.log(response.data);
@@ -27,7 +27,7 @@ export default class savedToy extends Component {
 
     deleteToy(id) {
         axios
-            .delete(`http://localhost:3000/savedtoys/${id}`)
+            .delete(`/savedtoys/${id}`)
             .then(res => console.log(res.data));
 
         this.setState({
@@ -37,7 +37,7 @@ export default class savedToy extends Component {
 
     getToyData = (toyids) => {
         toyids.forEach(toy => {
-            axios.get(`http://localhost:3000/toy/${toy}`)
+            axios.get(`/toy/${toy}`)
                 .then(res => {
                     let tempArray = this.state.toys;
                     tempArray.push(res);
