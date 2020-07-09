@@ -9,7 +9,8 @@ export default class Validation extends Component {
     firstName: "",
     lastName: "",
     email: "",
-    password: ""
+    password: "",
+
   };
 
   handleInputChange = event => {
@@ -40,7 +41,7 @@ export default class Validation extends Component {
           firstName: res.data.firstName
         });
         console.log(res.data);
-        window.location = "/";
+        window.location = "/"
       })
       .catch();
 
@@ -61,7 +62,9 @@ export default class Validation extends Component {
       email: this.state.email,
       password: this.state.password
     };
-    axios.post("/user/add", user).then(res => console.log(res.data));
+    axios
+      .post("/user/add", user)
+      .then(res => console.log(res.data));
     this.setState({ redirectTo: "/" });
 
     this.setState({
