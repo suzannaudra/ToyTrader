@@ -20,7 +20,7 @@ mongoose.Promise = global.Promise;
 
 // Connect to the Mongo DB
 mongoose
-  .connect(process.env.MONGODB_URL || "mongodb://localhost/toytrader", {
+  .connect(process.env.MONGODB_URL, {
     useUnifiedTopology: true,
     useNewUrlParser: true
   })
