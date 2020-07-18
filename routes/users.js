@@ -72,7 +72,7 @@ router.route("/user/login").get((req, res) => {
   if (user) {
     let userInfo = {
       _id: user._id,
-      firstName: user.firstName
+      firstName: req.session.passport.user.firstName
     };
     res.send(userInfo);
   } else {
