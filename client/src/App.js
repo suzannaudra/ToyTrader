@@ -2,7 +2,7 @@ import React, { Component } from "react";
 // import { BrowserRouter as Router, Route } from "react-router-dom";
 import "./App.css";
 import "bootstrap/dist/css/bootstrap.min.css";
-// import { Redirect } from "react-router-dom"
+import { Redirect } from "react-router-dom";
 import { Route, Switch } from "react-router-dom";
 
 import NavigationBar from "./components/Navbar";
