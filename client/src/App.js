@@ -1,9 +1,8 @@
 import React, { Component } from "react";
-// import { BrowserRouter as Router, Route } from "react-router-dom";
+import { BrowserRouter as Router, Route } from "react-router-dom";
 import "./App.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { Redirect } from "react-router-dom";
-import { Route, Switch } from "react-router-dom";
 
 import NavigationBar from "./components/Navbar";
 import ToyList from "./pages/ToyList";
@@ -100,7 +99,7 @@ class App extends Component {
     console.log("app render " + this.state.query);
     console.table(this.state.toys);
     return (
-      <Switch>
+      <Router>
         <div className="container">
           {this.state.loggedIn ? (
             <SignedInNav
@@ -184,7 +183,7 @@ class App extends Component {
           {/* <Route path="/toy" render={props => (<Toy {...props} userid={this.state.userid} />)} /> */}
           <Route path="/toy" component={Toy} />
         </div>
-      </Switch>
+      </Router>
     );
   }
 }
