@@ -4,7 +4,11 @@ require("dotenv").config();
 let User = require("./models/users");
 
 const express = require("express");
+const path = require("path");
 const app = express();
+
+// Serving the static files from the React App
+app.use(express.static(path.join(__dirname, "client/build")));
 
 // Other node modules needed for passport/auth
 const bcrypt = require("bcrypt");
