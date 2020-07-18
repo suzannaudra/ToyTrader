@@ -1,8 +1,9 @@
 import React, { Component } from "react";
-import { BrowserRouter as Router, Route } from "react-router-dom";
+// import { BrowserRouter as Router, Route } from "react-router-dom";
 import "./App.css";
 import "bootstrap/dist/css/bootstrap.min.css";
-import { Redirect } from "react-router-dom"
+// import { Redirect } from "react-router-dom"
+import { Route, Switch } from "react-router-dom";
 
 import NavigationBar from "./components/Navbar";
 import ToyList from "./pages/ToyList";
@@ -37,7 +38,7 @@ class App extends Component {
   handleSubmit = () => {
     if (this.state.query) {
       console.log("will now search for new toy");
-      console.log(this.state.query)
+      console.log(this.state.query);
       axios
         .get(`/find/${this.state.query}`)
         .then(response => {
@@ -47,9 +48,8 @@ class App extends Component {
         .catch(error => {
           console.log(error);
         });
-
     } else {
-      alert("Please enter some search text!")
+      alert("Please enter some search text!");
     }
   };
 
@@ -100,7 +100,7 @@ class App extends Component {
     console.log("app render " + this.state.query);
     console.table(this.state.toys);
     return (
-      <Router>
+      <Switch>
         <div className="container">
           {this.state.loggedIn ? (
             <SignedInNav
@@ -109,8 +109,8 @@ class App extends Component {
               kickUser={this.kickUser}
             />
           ) : (
-              <LogInNav updatedUser={this.updatedUser} />
-            )}
+            <LogInNav updatedUser={this.updatedUser} />
+          )}
 
           <NavigationBar
             onChange={event => this.setState({ query: event.target.value })}
@@ -121,27 +121,36 @@ class App extends Component {
                 this.handleSubmit();
               }
             }}
-
           />
 
           <CarouselSlider />
           <br />
-          {this.state.toys.length > 0 && <Redirect to={{
-            pathname: '/results',
-            state: { results: this.state.results }
-          }} />}
+          {this.state.toys.length > 0 && (
+            <Redirect
+              to={{
+                pathname: "/results",
+                state: { results: this.state.results }
+              }}
+            />
+          )}
 
           <Route
             path="/"
             exact
-            render={props =>
-              (<ToyList {...props} userid={this.state.userid} />)
-
-            }
+            render={props => <ToyList {...props} userid={this.state.userid} />}
           />
 
-          <Route path="/results" exact
-            component={props => <SearchResults {...props} userid={this.state.userid} query={this.state.query} />} />
+          <Route
+            path="/results"
+            exact
+            component={props => (
+              <SearchResults
+                {...props}
+                userid={this.state.userid}
+                query={this.state.query}
+              />
+            )}
+          />
 
           <Route
             path="/toys"
@@ -175,7 +184,7 @@ class App extends Component {
           {/* <Route path="/toy" render={props => (<Toy {...props} userid={this.state.userid} />)} /> */}
           <Route path="/toy" component={Toy} />
         </div>
-      </Router>
+      </Switch>
     );
   }
 }
