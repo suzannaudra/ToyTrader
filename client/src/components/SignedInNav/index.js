@@ -26,7 +26,15 @@ class SignedInNav extends Component {
               id="collasible-nav-dropdown"
             >
               {/* React's bootstrap does not pick up the route changes */}
-              <NavDropdown.Item as={Link} to="/savedtoys">
+              <NavDropdown.Item
+                as={Link}
+                to={{
+                  pathname: "/savedtoys",
+                  state: {
+                    userid: this.props.userid
+                  }
+                }}
+              >
                 {" "}
                 <FavoriteIcon style={{ color: "red" }} /> Favorites
               </NavDropdown.Item>
