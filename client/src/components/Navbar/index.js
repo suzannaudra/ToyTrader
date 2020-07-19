@@ -16,13 +16,18 @@ export default class NavigationBar extends Component {
   render() {
     return (
       <Navbar expand="lg" className="navbar-container">
-        <Navbar.Brand href="/toys">ToyTrader</Navbar.Brand>
+        <Navbar.Brand as={Link} to="/toys">
+          ToyTrader
+        </Navbar.Brand>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="mr-auto">
-            <Link to={{ pathname: "/toys" }}>HOME</Link>
-            <Link to={{ pathname: "/aboutUs" }}>ABOUT US</Link>
-            <NavLink to="/aboutUs">ABOUT US</NavLink>
+            <Nav.Link as={Link} to={"/toys"}>
+              HOME
+            </Nav.Link>
+            <Nav.Link as={Link} to={"/aboutUs"}>
+              ABOUT US
+            </Nav.Link>
             <NavDropdown title="CONTACT" id="basic-nav-dropdown">
               <NavDropdown.Item href="https://github.com/thuynguyen-nht">
                 Thuy Nguyen

@@ -8,40 +8,42 @@ import { NavDropdown } from "react-bootstrap";
 import FavoriteIcon from "@material-ui/icons/Favorite";
 import ExitToAppIcon from "@material-ui/icons/ExitToApp";
 import ListIcon from "@material-ui/icons/List";
+import { Link } from "react-router-dom";
 
 class SignedInNav extends Component {
-    render() {
-        return (
-            <Container fluid>
-                <Row>
-                    <Col>
-                        <img src={logo} alt="Fun Ex Change Logo" />
-                    </Col>
-                    <Col xs lg="1" className="px-1 pt-5 text-right">
-                        {/* plug in username in dropdown "title" */}
-                        <NavDropdown
-                            className="usernav"
-                            title={this.props.firstName}
-                            id="collasible-nav-dropdown"
-                        >
-                            <NavDropdown.Item href="/savedtoys">
-                                {" "}
-                                <FavoriteIcon style={{ color: "red" }} /> Favorites
+  render() {
+    return (
+      <Container fluid>
+        <Row>
+          <Col>
+            <img src={logo} alt="Fun Ex Change Logo" />
+          </Col>
+          <Col xs lg="1" className="px-1 pt-5 text-right">
+            {/* plug in username in dropdown "title" */}
+            <NavDropdown
+              className="usernav"
+              title={this.props.firstName}
+              id="collasible-nav-dropdown"
+            >
+              {/* React's bootstrap does not pick up the route changes */}
+              <NavDropdown.Item as={Link} to="/savedtoys">
+                {" "}
+                <FavoriteIcon style={{ color: "red" }} /> Favorites
               </NavDropdown.Item>
-                            <NavDropdown.Item href="/toys/add">
-                                {" "}
-                                <ListIcon style={{ color: "blue" }} /> Your Listing
+              <NavDropdown.Item as={Link} to="/toys/add">
+                {" "}
+                <ListIcon style={{ color: "blue" }} /> Your Listing
               </NavDropdown.Item>
-                            <NavDropdown.Divider />
-                            <NavDropdown.Item id="SignOut" onClick={this.props.kickUser}>
-                                {" "}
-                                <ExitToAppIcon style={{ color: "red" }} /> Sign Out
+              <NavDropdown.Divider />
+              <NavDropdown.Item id="SignOut" onClick={this.props.kickUser}>
+                {" "}
+                <ExitToAppIcon style={{ color: "red" }} /> Sign Out
               </NavDropdown.Item>
-                        </NavDropdown>
-                    </Col>
-                </Row>
-            </Container>
-        );
-    }
+            </NavDropdown>
+          </Col>
+        </Row>
+      </Container>
+    );
+  }
 }
 export default SignedInNav;
