@@ -8,6 +8,8 @@ import {
   FormControl,
   Button
 } from "react-bootstrap";
+import { Link } from "react-router-dom";
+
 import "./style.css";
 
 export default class NavigationBar extends Component {
@@ -18,7 +20,8 @@ export default class NavigationBar extends Component {
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="mr-auto">
-            <NavLink to="/toys">HOME</NavLink>
+            <Link to={{ pathname: "/toys" }}>HOME</Link>
+            <Link to={{ pathname: "/aboutUs" }}>ABOUT US</Link>
             <NavLink to="/aboutUs">ABOUT US</NavLink>
             <NavDropdown title="CONTACT" id="basic-nav-dropdown">
               <NavDropdown.Item href="https://github.com/thuynguyen-nht">
