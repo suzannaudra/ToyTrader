@@ -10,10 +10,6 @@ const app = express();
 // Serving the static files from the React App
 app.use(express.static(path.join(__dirname, "client/build")));
 
-app.get("*", (req, res) => {
-  res.sendFile(path.join(__dirname + "/client/build/index.html"));
-});
-
 // Other node modules needed for passport/auth
 const bcrypt = require("bcrypt");
 const flash = require("express-flash");
