@@ -2,3 +2,4 @@ This is a application made using React.  This is designed to help families get r
 
 Link to deployed site: https://toytrader.herokuapp.com/
 
+![ToyTrader](ToyTrader.png)
