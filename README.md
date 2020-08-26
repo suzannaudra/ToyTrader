@@ -23,6 +23,9 @@ https://toytrader.herokuapp.com/
 
 ## Visit us at:
 [Suzann Kowalski](https://github.com/suzannaudra)
+
 [Thuy Nguyen](https://github.com/thuynguyen-nht)
+
 [Angel de la Torre](https://github.com/ardelato)
+
 [Ryan Shepard](https://github.com/Bangdrum)
